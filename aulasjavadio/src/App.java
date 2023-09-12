@@ -9,8 +9,15 @@ public class App {
         pilha.PushV(pilha, 5);
         pilha.PushV(pilha, 6);
         pilha.PushV(pilha, 7);
-        pilha.PushV(pilha, 11);
-        pilha.PushV(pilha, 22);
+       pilha.PushV(pilha, 11);
+        pilha.PushP(pilha, 24);
+        pilha.PushP(pilha, 27);
+        pilha.PushP(pilha, 29);
+        pilha.PushP(pilha, 25);
+        pilha.PushP(pilha, 30);
+        pilha.PushP(pilha, 31);
+
+        
        
 
         
@@ -139,7 +146,7 @@ class PilhaRN {
             new_itens[i] = lista.lista[i];
         }
 
-        for(int j=lista.lista.length-1; j>=tpreto; j--){
+        for(int j=lista.lista.length-1; j>=tamanho+1; j--){
             new_itens[novo_tamanho] = lista.lista[j];
             novo_tamanho--;
         }
