@@ -1,3 +1,8 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.sourcePaths": [
+        "filias/Fila/src/src",
+        "filias/Fila/src",
+        "filias"
+    ]
 }
