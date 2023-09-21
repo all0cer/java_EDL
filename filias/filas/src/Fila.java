@@ -16,7 +16,12 @@ public class Fila implements IFila{
 
     @Override
     public Object dequeue() {
-          return 1+1;
+          if(size()==N-1){
+            FilaCheia(filinha);
+        }
+        Object temp = filinha[inicio];
+        inicio = (inicio+1)%N;
+        return temp;
     }
 
     @Override
