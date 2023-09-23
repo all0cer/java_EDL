@@ -1,4 +1,4 @@
-package filas.src;
+package filas.src.FilaArray;
 public class Fila implements IFila{
     public int N = 6; 
     public int inicio = 0;
