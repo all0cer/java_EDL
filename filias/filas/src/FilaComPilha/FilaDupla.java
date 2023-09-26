@@ -6,12 +6,16 @@ public class FilaDupla implements IFila{
 
     @Override
     public void enqueue(Object o) {
-        
+        Pilha pilha2;
+        for(int i=pilha1.Size(); i>1; i--){
+                 
+        }
+
     }
 
     @Override
     public Object dequeue() {
-    
+        
     }
 
     @Override
