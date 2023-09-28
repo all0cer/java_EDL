@@ -3,15 +3,15 @@ package filas.src.ListaLigada;
 interface IListaLigada {
     public  boolean isEmpty();
     public  int size();
-    public  node first();
-    public  node last();
-    public  node before(Object node);
-    public  node after(Object node);
-    public  void replaceElement(n, o);
-    public  void swapElements(n, q);
-    public  void insertBefore(n, o);
-    public  void insertAfter(n, o);
-    public  void insertFirst(o);
-    public  void insertLast(o);
-    public  node remove(n);
+    public  Object first();
+    public  Object last();
+    public  Object before(node no);
+    public  Object after(node no);
+    public  void replaceElement(node no, Object elemento);
+    public  void swapElements(node no, node no2);
+    public  void insertBefore(node no, Object elemento);
+    public  void insertAfter(node no, Object elemento);
+    public  void insertFirst(node no);
+    public  void insertLast(node no);
+    public  Object remove(node o);
 }
