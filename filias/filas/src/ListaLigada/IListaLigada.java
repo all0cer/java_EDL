@@ -11,7 +11,7 @@ interface IListaLigada {
     public  void swapElements(node no, node no2);
     public  void insertBefore(node no, Object elemento);
     public  void insertAfter(node no, Object elemento);
-    public  void insertFirst(node no);
-    public  void insertLast(node no);
-    public  Object remove(node o);
+    public  void insertFirst(Object elemento);
+    public  void insertLast(Object elemento);
+    public  Object remove(Object o);
 }

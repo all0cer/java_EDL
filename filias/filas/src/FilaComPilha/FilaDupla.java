@@ -13,15 +13,15 @@ public class FilaDupla implements IFila{
 
     }
 
-    @Override
-    public Object dequeue() {
+    // @Override
+    // public Object dequeue() {
         
-    }
+    // }
 
-    @Override
-    public Object first() {
+    // @Override
+    // public Object first() {
 
-    }
+    // }
 
     @Override
     public int size() {
