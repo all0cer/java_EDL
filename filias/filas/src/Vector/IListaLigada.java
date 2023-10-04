@@ -1,4 +1,4 @@
-package filas.src.ListaLigada;
+package filas.src.Vector;
 
 interface IListaLigada {
     public  boolean isEmpty();

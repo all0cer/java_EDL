@@ -11,8 +11,8 @@ public class ListaLigada implements IListaLigada {
         this.tamanho = 0;
         this.inicio = null;
         this.fim = null;
-
     }
+    
     @Override
     public boolean isEmpty() {
         return tamanho == 0 ? true : false;

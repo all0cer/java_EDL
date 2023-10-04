@@ -1,17 +1,23 @@
 package filas.src.Vector;
 
+import javax.management.RuntimeErrorException;
+
 public class VetorLL implements Ivector{
     private node fim;
     private node inicio;
-    private int tamanho = -1;
+    private int tamanho;
 
     public VetorLL(){
         this.inicio = null;
         this.fim = null;
+        tamanho = 0;
     }
 
     @Override
     public Object elemAtRank(int r) {
+        if(r > tamanho){
+            new RuntimeException("Não existe este index, tente pelo tamanho atual: " + size());
+        }
         node atual = inicio.getNext();
         for(int i=0; i < r; i++){
             atual = atual.getNext();
@@ -19,51 +25,90 @@ public class VetorLL implements Ivector{
         return atual.getValor();
     }
 
+
     @Override
     public Object replaceAtRank(int r, Object o) {
-        return dados[r] = o;
+        if(r > tamanho){
+            new RuntimeException("Não existe este index, tente pelo tamanho atual: " + size());
+        }
+        node atual = inicio.getNext();
+            for(int i=0; i < r; i++){
+                atual = atual.getNext();
+            }
+
+            atual.setValor(o);
+            return atual.getValor();
     }
+
 
     @Override
     public void insertAtRank(int r, Object o) {
+        if(r > tamanho){
+            new RuntimeException("Não existe este index, tente pelo tamanho atual: " + size());
+        }
+        node new_node = new node(o);
+        if(inicio == null){
+                inicio =  new node(null);
+                fim =  new node(null);
+                inicio.setNext(new_node);
+                fim.setPrev(new_node);
+                new_node.setPrev(inicio);
+                new_node.setNext(fim);
+            }
+        node atual = inicio.getNext();
+        for (int i = 0; i < r; i++) {
+                atual = atual.getNext();
+            }
+        new_node.setPrev(atual.getPrev());
+        new_node.setNext(atual);
+        atual.getPrev().setNext(new_node);
+        atual.setPrev(new_node);
         
+        ++tamanho;
+    }
 
     @Override
     public Object removeAtRank(int r) {
-        Object tempo = dados[r];
-        for(int i = r; i < dados.length-1; i++){
-            dados[i] = dados[i+1];
+        if(r > tamanho){
+            new RuntimeException("Não existe este index");
         }
+        node atual = inicio.getNext();
+        for (int i = 0; i < r; i++) {
+                atual = atual.getNext();
+            }
+            Object temp = atual.getValor();
+            (atual.getPrev()).setNext(atual.getNext());
+            (atual.getNext()).setPrev(atual.getPrev());
+            --tamanho;
 
-        --quantidade;
-        return tempo;
+             atual.setNext(null);
+             atual.setPrev(null);
+             atual.setValor(null);
+            return temp;
     }
 
     @Override
     public int size() {
-        return quantidade;
+        return tamanho;
     }
 
     @Override
     public boolean isEmpty() {
-        return quantidade == 0 ? true : false;
+        return tamanho == 0 ? true : false;
     }
 
-    public void DobrarTamanho(){ 
-			Object novos_dados[] = new Object[capacidade*2];
-			for(int i = 0; i < capacidade; i++) {
-				novos_dados[i] = dados[i];
-			} 
-        dados = novos_dados;   
-        capacidade *= 2;
-        }
 
 
-    public void PrintVector() {
+    public void PrintVectorLL() {
+		node atual = inicio.getNext();
 		System.out.print("[ ");
-		for(int i = 0; i < capacidade ; i++) {
-			System.out.print(dados[i] + ",");
+		for(int i = 0; i < size(); i++) {
+            if(atual.getValor() == null) {
+				break;
+			}
+			System.out.print(atual.getValor()+ ", ");
+			atual = atual.getNext();
 		}
-		System.out.println("]");
-    }
+		System.out.print("]");
+}
 }

@@ -63,7 +63,19 @@ public class ListaLigada implements IListaLigada {
 
     @Override
     public void swapElements(int index, int index1) {
-            
+        node atual = inicio.getNext();
+        for(int i=0; i<index; i++){
+            atual = atual.getNext();
+        }
+        Object tempo = atual.getValor();
+
+        node atual1 = inicio.getNext();
+        for(int i = 0; i < index1; i++){
+             atual1 = atual1.getNext();
+        }
+        
+        atual.setValor(atual1.getValor());
+        atual1.setValor(tempo);
     }
 
     @Override
@@ -132,6 +144,7 @@ public class ListaLigada implements IListaLigada {
     public void insertLast(Object elemento) {
         node no = new node(elemento);
         no.setNext(fim);
+        no.setPrev(fim.getPrev());
         fim.getPrev().setNext(no);
         fim.setPrev(no);
          ++tamanho;
@@ -174,6 +187,8 @@ public class ListaLigada implements IListaLigada {
 		}
 		System.out.print("]");
 	}
+
+    
 }
 
 
