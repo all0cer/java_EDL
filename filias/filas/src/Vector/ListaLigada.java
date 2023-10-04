@@ -1,4 +1,4 @@
-package filas.src.ListaLigada;
+package filas.src.Vector;
 
 public class ListaLigada implements IListaLigada {
     private node inicio;
@@ -154,14 +154,7 @@ public class ListaLigada implements IListaLigada {
             return temp;
     }
     
-    public Object elemAtRank(int r) {
-        node atual = inicio.getNext();
-        for(int i=0; i < r; i++){
-            atual = atual.getNext();
-        }
-        return atual.getValor();
-    }
-    
+
     public void PrintVector() {
 		node atual = inicio.getNext();
 		System.out.print("[ ");
