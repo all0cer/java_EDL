@@ -9,10 +9,12 @@ public class ListaLigada implements IListaLigada {
 
     public ListaLigada(){
         this.tamanho = 0;
-        this.inicio = null;
-        this.fim = null;
-
+        this.inicio = new node(null);
+        this.fim = new node(null);
+        this.inicio.setNext(fim);
+        this.fim.setPrev(inicio);
     }
+
     @Override
     public boolean isEmpty() {
         return tamanho == 0 ? true : false;
@@ -81,14 +83,6 @@ public class ListaLigada implements IListaLigada {
     @Override
     public void insertBefore(int index, Object elemento) {
         node new_node = new node(elemento);
-        if(inicio == null){
-                inicio =  new node(null);
-                fim =  new node(null);
-                inicio.setNext(new_node);
-                fim.setPrev(new_node);
-                new_node.setPrev(inicio);
-                new_node.setNext(fim);
-            }
         node atual = inicio.getNext();
         for (int i = 0; i < index; i++) {
                 atual = atual.getNext();
@@ -102,16 +96,7 @@ public class ListaLigada implements IListaLigada {
 
     @Override
     public void insertAfter(int index, Object elemento) {
-        
         node new_node = new node(elemento);
-        if(inicio == null){
-                inicio =  new node(null);
-                fim =  new node(null);
-                inicio.setNext(new_node);
-                fim.setPrev(new_node);
-                new_node.setPrev(inicio);
-                new_node.setNext(fim);
-            }
         node atual = inicio.getNext();
         for (int i = 0; i < index; i++) {
                 atual = atual.getNext();
@@ -126,16 +111,9 @@ public class ListaLigada implements IListaLigada {
     @Override
     public void insertFirst(Object elemento) {
             node primeiro_no = new node(elemento);
-            if(inicio == null){
-                inicio =  new node(null);
-                fim =  new node(null);
-                inicio.setNext(primeiro_no);
-                fim.setPrev(primeiro_no);
-                primeiro_no.setPrev(inicio);
-                primeiro_no.setNext(fim);
-            }
             primeiro_no.setNext(inicio.getNext());
             primeiro_no.setPrev(inicio);
+            inicio.getNext().setPrev(primeiro_no);
             inicio.setNext(primeiro_no);
             ++tamanho;
     }

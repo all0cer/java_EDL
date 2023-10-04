@@ -15,6 +15,7 @@ public class testeListaLigada {
     lista.remove(3);
     lista.swapElements(2, 4);
     lista.replaceElement(4, 67);
+    lista.insertBefore(2,55);
     System.out.println("TA VAZIA ESSA DESGRAÇA? " + lista.isEmpty());
     lista.PrintVector();
     System.out.println();

@@ -1,6 +1,5 @@
 package filas.src.Vector;
 
-import javax.management.RuntimeErrorException;
 
 public class VetorLL implements Ivector{
     private node fim;
@@ -8,9 +7,11 @@ public class VetorLL implements Ivector{
     private int tamanho;
 
     public VetorLL(){
-        this.inicio = null;
-        this.fim = null;
+        this.inicio = new node(null);
+        this.fim = new node(null);
         tamanho = 0;
+        this.inicio.setNext(fim);
+        this.fim.setPrev(inicio);
     }
 
     @Override
