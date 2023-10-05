@@ -22,14 +22,9 @@ public class ListaLigada implements IListaLigada {
 
     @Override
     public int size() {
-        if(isEmpty()){
-            return tamanho+1;
-        }
         return tamanho;
     }
 
-
-  
     @Override
     public Object first() {
         return inicio.getNext().getValor();
@@ -125,6 +120,19 @@ public class ListaLigada implements IListaLigada {
         --tamanho;
         return temp;
     }
+
+    public void PrintVector() {
+		node atual = inicio.getNext();
+		System.out.print("[ ");
+		for(int i = 0; i < size(); i++) {
+            if(atual.getValor() == null) {
+				break;
+			}
+			System.out.print(atual.getValor()+ ", ");
+			atual = atual.getNext();
+		}
+		System.out.print("]");
+	}
 
 }
 
