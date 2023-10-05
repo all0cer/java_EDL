@@ -17,14 +17,19 @@ public class ListaLigada implements IListaLigada {
 
     @Override
     public boolean isEmpty() {
-        return tamanho == 0 ? true : false;
+        return inicio.getNext() == fim;
     }
 
     @Override
     public int size() {
+        if(isEmpty()){
+            return tamanho+1;
+        }
         return tamanho;
     }
 
+
+  
     @Override
     public Object first() {
         return inicio.getNext().getValor();
@@ -36,137 +41,91 @@ public class ListaLigada implements IListaLigada {
     }
 
     @Override
-    public Object before(int index) {
-          node atual = inicio.getNext();
-            for(int i=0; i < index; i++){
-                atual = atual.getNext();
-            }
-        return atual.getPrev().getValor();
+    public Object before(node no) {
+          return (no.getPrev()).getValor();
     }
 
     @Override
-    public Object after(int index) {
-       node atual = inicio.getNext();
-            for(int i=0; i < index; i++){
-                atual = atual.getNext();
-            }
-        return atual.getNext().getValor();
+    public Object after(node no) {
+       return (no.getNext()).getValor();
     }
 
     @Override
-    public void replaceElement(int index, Object elemento) {
-            node atual = inicio.getNext();
-            for(int i=0; i < index; i++){
-                atual = atual.getNext();
-            }
+    public void replaceElement(node no, Object elemento) {
+            no.setValor(elemento);
+    }
 
-            atual.setValor(elemento);
+
+    @Override
+    public void swapElements(node no1, node no2) {
+            Object valor_no_2 = no1.getValor();
+            Object valor_no_1 = no2.getValor();
+            no1.setValor(valor_no_2);
+            no2.setValor(valor_no_1);
     }
 
     @Override
-    public void swapElements(int index, int index1) {
-        node atual = inicio.getNext();
-        for(int i=0; i<index; i++){
-            atual = atual.getNext();
-        }
-        Object tempo = atual.getValor();
-
-        node atual1 = inicio.getNext();
-        for(int i = 0; i < index1; i++){
-             atual1 = atual1.getNext();
-        }
-        
-        atual.setValor(atual1.getValor());
-        atual1.setValor(tempo);
-    }
-
-    @Override
-    public void insertBefore(int index, Object elemento) {
+    public void insertBefore(node no, Object elemento) {
         node new_node = new node(elemento);
-        node atual = inicio.getNext();
-        for (int i = 0; i < index; i++) {
-                atual = atual.getNext();
-            }
-        new_node.setPrev(atual.getPrev());
-        new_node.setNext(atual);
-        (atual.getPrev()).setNext(new_node);
-        atual.setPrev(new_node);
+        new_node.setValor(elemento);
+
+        new_node.setNext(no);
+        new_node.setPrev(no.getPrev());
+
+        (no.getPrev()).setNext(new_node);
+        no.setPrev(new_node);
         ++tamanho;
     }
 
     @Override
-    public void insertAfter(int index, Object elemento) {
+    public void insertAfter(node no, Object elemento) {
         node new_node = new node(elemento);
-        node atual = inicio.getNext();
-        for (int i = 0; i < index; i++) {
-                atual = atual.getNext();
-            }
-        new_node.setPrev(atual);
-        new_node.setNext(atual.getNext());
-        (atual.getNext()).setPrev(new_node);
-        atual.setNext(new_node);
+        new_node.setValor(elemento);
+        new_node.setPrev(no);
+        new_node.setNext(no.getNext());
+
+        (no.getNext()).setPrev(new_node);
+        no.setNext(new_node);
         ++tamanho;
+
     }
 
     @Override
     public void insertFirst(Object elemento) {
-            node primeiro_no = new node(elemento);
-            primeiro_no.setNext(inicio.getNext());
-            primeiro_no.setPrev(inicio);
-            inicio.getNext().setPrev(primeiro_no);
-            inicio.setNext(primeiro_no);
+            node no = new node(elemento);
+            no.setValor(elemento);
+            no.setPrev(inicio);
+            no.setNext(inicio.getNext());
+            (inicio.getNext()).setPrev(no);
+            inicio.setNext(no);
             ++tamanho;
     }
 
     @Override
     public void insertLast(Object elemento) {
         node no = new node(elemento);
+        no.setValor(elemento);
         no.setNext(fim);
-        no.setPrev(fim.getPrev());
-        fim.getPrev().setNext(no);
-        fim.setPrev(no);
+
+        (fim.getPrev()).setNext(no);
+         fim.setPrev(no);
          ++tamanho;
     }
 
     @Override
-    public Object remove(int index) {
-        node atual = inicio.getNext();
-        for (int i = 0; i < index; i++) {
-                atual = atual.getNext();
-            }
-            Object temp = atual.getValor();
-            (atual.getPrev()).setNext(atual.getNext());
-            (atual.getNext()).setPrev(atual.getPrev());
-            --tamanho;
+    public Object remove(node no) {
+        Object temp = no.getValor();
 
-             atual.setNext(null);
-             atual.setPrev(null);
-             atual.setValor(null);
-            return temp;
-    }
-    
-    public Object elemAtRank(int r) {
-        node atual = inicio.getNext();
-        for(int i=0; i < r; i++){
-            atual = atual.getNext();
-        }
-        return atual.getValor();
-    }
-    
-    public void PrintVector() {
-		node atual = inicio.getNext();
-		System.out.print("[ ");
-		for(int i = 0; i < size(); i++) {
-            if(atual.getValor() == null) {
-				break;
-			}
-			System.out.print(atual.getValor()+ ", ");
-			atual = atual.getNext();
-		}
-		System.out.print("]");
-	}
+        (no.getNext()).setPrev(no.getPrev());
+        (no.getPrev()).setNext(no.getNext());
 
-    
+        no.setNext(null);
+        no.setPrev(null);
+        no.setValor(null);
+        --tamanho;
+        return temp;
+    }
+
 }
 
 

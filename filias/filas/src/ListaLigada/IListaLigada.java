@@ -5,13 +5,13 @@ interface IListaLigada {
     public  int size();
     public  Object first();
     public  Object last();
-    public  Object before(int index);
-    public  Object after(int index);
-    public  void replaceElement(int index, Object elemento);
-    public  void swapElements(int index, int index1);
-    public  void insertBefore(int index, Object elemento);
-    public  void insertAfter(int index, Object elemento);
+    public  Object before(node no);
+    public  Object after(node no);
+    public  void replaceElement(node no, Object elemento);
+    public  void swapElements(node no, node no1);
+    public  void insertBefore(node no, Object elemento);
+    public  void insertAfter(node no, Object elemento);
     public  void insertFirst(Object elemento);
     public  void insertLast(Object elemento);
-    public  Object remove(int o);
+    public  Object remove(node  no);
 }
