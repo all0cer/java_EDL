@@ -14,4 +14,5 @@ interface IListaLigada {
     public  void insertFirst(Object elemento);
     public  void insertLast(Object elemento);
     public  Object remove(node  no);
+    public node find(Object o);
 }

@@ -162,7 +162,7 @@ public class ListaLigada implements IListaLigada {
             if(atual.getValor() == null) {
 				break;
 			}
-			System.out.print(atual.getValor()+ ", ");
+			System.out.print(atual);
 			atual = atual.getNext();
 		}
 		System.out.print("]");

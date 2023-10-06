@@ -55,14 +55,15 @@ public class ListaLigada implements IListaLigada {
     public void swapElements(node no1, node no2) {
             Object valor_no_2 = no1.getValor();
             Object valor_no_1 = no2.getValor();
-            no1.setValor(valor_no_2);
-            no2.setValor(valor_no_1);
+            no1.setValor(valor_no_1);
+            no2.setValor(valor_no_2);
     }
 
     @Override
     public void insertBefore(node no, Object elemento) {
         node new_node = new node(elemento);
         new_node.setValor(elemento);
+        
 
         new_node.setNext(no);
         new_node.setPrev(no.getPrev());
@@ -75,9 +76,9 @@ public class ListaLigada implements IListaLigada {
     @Override
     public void insertAfter(node no, Object elemento) {
         node new_node = new node(elemento);
-        new_node.setValor(elemento);
         new_node.setPrev(no);
         new_node.setNext(no.getNext());
+        
 
         (no.getNext()).setPrev(new_node);
         no.setNext(new_node);
@@ -88,9 +89,9 @@ public class ListaLigada implements IListaLigada {
     @Override
     public void insertFirst(Object elemento) {
             node no = new node(elemento);
-            no.setValor(elemento);
             no.setPrev(inicio);
             no.setNext(inicio.getNext());
+
             (inicio.getNext()).setPrev(no);
             inicio.setNext(no);
             ++tamanho;
@@ -131,8 +132,17 @@ public class ListaLigada implements IListaLigada {
 			System.out.print(atual.getValor()+ ", ");
 			atual = atual.getNext();
 		}
-		System.out.print("]");
+		System.out.println("]");
 	}
+
+    public node find(Object valor){
+        node atual = inicio.getNext();
+        while(atual.getValor() != valor){
+            atual = atual.getNext();
+        }
+        
+        return atual;
+    }
 
 }
 
