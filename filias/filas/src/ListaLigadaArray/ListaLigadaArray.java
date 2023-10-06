@@ -15,7 +15,7 @@ public class ListaLigadaArray implements IListaLigada {
 
     @Override
     public boolean isEmpty() {
-        return tamanho == -1 ? true : false;
+        return tamanho == 0 ? true : false;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ListaLigadaArray implements IListaLigada {
 
     @Override
     public Object last() {
-        return dados[tamanho];
+        return dados[capacidade-1];
     }
 
     @Override
@@ -116,9 +116,7 @@ public class ListaLigadaArray implements IListaLigada {
 
     @Override
     public void remove(int index) {
-        for(int i = index; i < dados.length-1; i++){
-            dados[i] = dados[i+1];
-        }
+        dados[index] = null;
 
         --tamanho;
     }
