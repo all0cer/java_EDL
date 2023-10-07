@@ -15,4 +15,6 @@ interface Isequencia {
     public node find(Object o);
     public Object atRank(int index);
     public Object rankOf(node no);
+    public boolean isEmpty();
+    public long size();
 }

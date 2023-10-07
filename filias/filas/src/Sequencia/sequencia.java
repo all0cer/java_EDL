@@ -71,6 +71,16 @@ public class sequencia implements Isequencia {
     }
 
     @Override
+    public boolean isEmpty(){
+
+    }
+
+    @Override
+    public long size(){
+        
+    }
+
+    @Override
     public node find(Object o) {
        
     }
