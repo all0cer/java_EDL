@@ -1,6 +1,19 @@
 package filas.src.Sequencia;
 
 public class sequencia implements Isequencia {
+    private node inicio;
+    private node fim;
+    private int tamanho;
+
+    
+
+    public sequencia(){
+        this.tamanho = 0;
+        this.inicio = new node(null);
+        this.fim = new node(null);
+        this.inicio.setNext(fim);
+        this.fim.setPrev(inicio);
+    }
 
     @Override
     public Object elemAtRank(int index) {
