@@ -134,7 +134,7 @@ public class ListaLigada implements IListaLigada {
 		}
 		System.out.println("]");
 	}
-
+    
     public node find(Object valor){
         node atual = inicio.getNext();
         while(atual.getValor() != valor){
