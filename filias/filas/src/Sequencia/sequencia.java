@@ -55,14 +55,14 @@ public class sequencia implements Isequencia {
     for(int i=0; i<index; i++){
         atual.getNext();
     }
-        (atual.getNext()).setPrev(atual.getPrev());
-        (atual.getPrev()).setNext(atual.getNext());
+    (atual.getNext()).setPrev(atual.getPrev());
+    (atual.getPrev()).setNext(atual.getNext());
 
-        atual.setNext(null);
-        atual.setPrev(null);
-        atual.setValor(null);
-        --tamanho;
-    }
+    atual.setNext(null);
+    atual.setPrev(null);
+    atual.setValor(null);
+    --tamanho;
+}
 
     @Override
     public void replaceElement(node no, Object elemento) {
