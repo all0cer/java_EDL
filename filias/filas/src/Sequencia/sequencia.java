@@ -19,7 +19,7 @@ public class sequencia implements Isequencia {
     public Object elemAtRank(int index) {
     node atual = inicio.getNext();
     for(int i=0; i<index; i++){
-        atual.getNext();
+        atual = atual.getNext();
     }
     return atual.getValor();
 }
@@ -28,7 +28,7 @@ public class sequencia implements Isequencia {
     public void replaceAtRank(int index, Object elemento) {
     node atual = inicio.getNext();
     for(int i=0; i<index; i++){
-        atual.getNext();
+        atual = atual.getNext();
     }
     atual.setValor(elemento);
 }
@@ -53,7 +53,7 @@ public class sequencia implements Isequencia {
     public void removeAtRank(int index) {
     node atual = inicio.getNext();
     for(int i=0; i<index; i++){
-        atual.getNext();
+        atual = atual.getNext();
     }
     (atual.getNext()).setPrev(atual.getPrev());
     (atual.getPrev()).setNext(atual.getNext());
@@ -160,7 +160,7 @@ public class sequencia implements Isequencia {
     public Object atRank(int index) {
     node atual = inicio.getNext();
     for(int i=0; i<index; i++){
-        atual.getNext();
+        atual = atual.getNext();
     }
     return atual.getValor();
     }
@@ -181,7 +181,7 @@ public class sequencia implements Isequencia {
 		node atual = inicio.getNext();
 		System.out.print("[ ");
 		for(int i = 0; i < size(); i++) {
-            if(atual.getNext() == fim) {
+            if(atual.getValor() == null) {
 				break;
 			}
 			System.out.print(atual.getValor()+ ", ");
