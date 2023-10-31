@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import javax.management.InvalidAttributeValueException;
 
+import filas.src.Sequencia.node;
+
 import java.util.ArrayList;
 
 
@@ -72,14 +74,10 @@ public class ArvoreSimples
 	}
 	/** Troca dois elementos de posi��o */
 	public void swapElements(No v, No w)
-	{
-		/*M�todo que serve de exerc�cio
-		 * Este m�todo dever� fazer com que o objeto
-		 * que estava na posi��o v fique na posi��o w
-		 * e fazer com que o objeto que estava na posi��o w
-		 * fique na posi��o v
-		 */  
-		
+	{		
+		   Object temp = v.element();
+	       v.setElement(w.element());
+		   w.setElement(temp);
 	}
 	/** Retorna a profundidade de um No */
 	public int depth(No v)
@@ -95,16 +93,22 @@ public class ArvoreSimples
 			return 1 + profundidade(v.parent());
 	}
 	/** Retorna a altura da �rvore */
-	public int height()
+	public int height(No v)
 	{
-		// M�todo que serve de exerc�cio
-		int altura = 0;
-		return altura;
+		if(isExternal(v)){
+			return 0;
+		}
+		else{
+			int altura = 0;
+			for (No w : v.children()) {
+				altura = Math.max(altura, height(w));
+			}
+			return 1+altura;
+		}
 	}
 	/** Retorna um iterator com os elementos armazenados na �rvore */
-	public Iterator elements()
+	public Iterator elements(No v)
 	{
-		// M�todo que serve de exerc�cio
 		return null;
 	}
 	/** Retorna um iterator com as posi��es (Nos) da �rvore */
@@ -136,7 +140,7 @@ public class ArvoreSimples
 	{
 		private Object o;
 		private No pai;
-		private ArrayList filhos = new ArrayList();
+		private ArrayList<No> filhos = new ArrayList();
 		public No(No pai, Object o)
 		{
 			this.pai = pai;
@@ -173,7 +177,7 @@ public class ArvoreSimples
 			return filhos.size();
 		}
 
-		public Iterator children()
+		public Iterator<No> children()
 		{
 			return filhos.iterator();
 		}
