@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import javax.management.InvalidAttributeValueException;
 
-import filas.src.Sequencia.node;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class ArvoreSimples
 	}
 
 	/** retorna os filhos de um No */
-	public Iterator children(No v)
+	public Iterator<No> children(No v)
 	{
 		return v.children();
 	}
@@ -100,29 +99,29 @@ public class ArvoreSimples
 		}
 		else{
 			int altura = 0;
-			for (No w : v.children()) {
-				altura = Math.max(altura, height(w));
+			Iterator<No> w = v.children();
+			while(w.hasNext()) {
+				altura = Math.max(altura, height(w.next()));
 			}
 			return 1+altura;
 		}
 	}
 	/** Retorna um iterator com os elementos armazenados na �rvore */
-	public Iterator elements(No v)
+	public Iterator<No> elements()
 	{
-		return null;
+	   return null;
 	}
 	/** Retorna um iterator com as posi��es (Nos) da �rvore */
 	public Iterator Nos()
 	{
-		// M�todo que serve de exerc�cio
+		
 		return null;
 	}
 	/** Retorna o n�mero de Nos da �rvore
 	 */
 	public int size()
 	{
-	    
-		return 0;
+		return tamanho;
 	}
 	/** Retorna se a �vore est� vazia. Sempre vai ser falso, pois n�o permitimos remover a raiz
 	 */
