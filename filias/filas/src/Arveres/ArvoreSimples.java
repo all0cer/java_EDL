@@ -121,7 +121,7 @@ public class ArvoreSimples
 	 */
 	public int size()
 	{
-	 // M�todo que serve de exerc�cio
+	    
 		return 0;
 	}
 	/** Retorna se a �vore est� vazia. Sempre vai ser falso, pois n�o permitimos remover a raiz
@@ -132,8 +132,9 @@ public class ArvoreSimples
 	}
 	public Object replace(No v, Object o)
 	{
-	 // M�todo que serve de exerc�cio
-		return null;
+	    Object temp = v.element();
+		v.setElement(o);
+		return temp;
 	}
 	/* In�cio da classe aninhada para armazenar o No*/
 	public class No 
