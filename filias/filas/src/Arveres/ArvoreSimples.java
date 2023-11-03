@@ -1,6 +1,7 @@
 package filas.src.Arveres;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -50,13 +51,8 @@ public class ArvoreSimples
 	{
 		return v == raiz;
 	}
-	/** Adiciona um filho a um No */
-	public void addChild(No v, Object o)
-	{
-		No novo = new No(v, o);
-		v.addChild(novo);
-		tamanho++;
-	}
+	/** Adiciona um filho a um No 
+	
 	/** Remove um No
 	 *  S� pode remover Nos externos e que tenham um pai (n�o seja raiz)
 	*/
@@ -84,6 +80,7 @@ public class ArvoreSimples
 		int profundidade = profundidade(v);
 		return profundidade;
 	}
+
 	private int profundidade(No v)
 	{
 		if (v == raiz)
@@ -91,7 +88,7 @@ public class ArvoreSimples
 		else
 			return 1 + profundidade(v.parent());
 	}
-	/** Retorna a altura da �rvore */
+
 	public int height(No v)
 	{
 		if(isExternal(v)){
@@ -107,15 +104,40 @@ public class ArvoreSimples
 		}
 	}
 	/** Retorna um iterator com os elementos armazenados na �rvore */
-	public Iterator<No> elements()
-	{
-	   return null;
+	public void preOrdena(No v, List<Object> elementsList) {
+        if (v != null) {
+            elementsList.add(v.element()); // Adiciona o elemento do nó atual à lista
+            Iterator<No> children = v.children();
+            while (children.hasNext()) {
+                preOrdena(children.next(), elementsList); // Recursivamente visita os filhos
+            }
+		}
 	}
-	/** Retorna um iterator com as posi��es (Nos) da �rvore */
-	public Iterator Nos()
+
+	public Iterator<Object> elements()
 	{
-		
-		return null;
+		List<Object> elementsList = new ArrayList<Object>();
+    	preOrdena(root(), elementsList);
+    	return elementsList.iterator();
+	}
+	
+	
+
+	private void preOrdernaNos(No v, List<Object> elemList) {
+        if (v != null) {
+            elemList.add(v); // Adiciona o nó atual à lista
+            Iterator<No> children = v.children();
+            while (children.hasNext()) {
+                preOrdernaNos(children.next(), elemList); // Recursivamente visita os filhos
+            }
+        }
+    }
+	/** Retorna um iterator com as posi��es (Nos) da �rvore */
+	public Iterator<Object> Nos()
+	{
+		List<Object> elemList = new ArrayList<Object>();
+		preOrdernaNos(root(), elemList);
+		return elemList.iterator();
 	}
 	/** Retorna o n�mero de Nos da �rvore
 	 */
@@ -140,7 +162,7 @@ public class ArvoreSimples
 	{
 		private Object o;
 		private No pai;
-		private ArrayList<No> filhos = new ArrayList();
+		private ArrayList<No> filhos = new ArrayList<>();
 		public No(No pai, Object o)
 		{
 			this.pai = pai;
