@@ -3,7 +3,7 @@ package filas.src.ArverePesquisa;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class arverepesquisa implements Iarverepesquisa {
+public class arverepesquisa implements Iarverepesquisa, Comparator {
     no raiz;
     int tamanho;
 
@@ -23,7 +23,10 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public no pesquisar(no no, Object key) {
+    public no pesquisar(Object key, no node) {
+        if (isExternal(node)){
+            return node;
+        }
         
     }
 
@@ -39,7 +42,7 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public no getRaiz() {
-        
+        return raiz;
     }
 
     @Override
@@ -78,13 +81,26 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public int altura(no no) {
-        
+    public int altura(no node) {
+        if(isExternal(node)){
+            return 0;
+        }
+        else{
+            int alturaesquerda = altura(filhodaesquerda(node));
+            int alturadireita = altura(filhodadireita(node));
+
+            return Math.max(alturaesquerda, alturadireita) + 1;
+        }
     }
 
     @Override
-    public int profundidade(no no) {
-        
+    public int profundidade(no node) {
+        if(node == raiz){
+            return 0;
+        }
+        else{
+            return 1+profundidade(parent(node));
+        }
     }
 
     @Override
@@ -99,20 +115,25 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public Iterator elements() {
-       
+       return 
     }
 
     @Override
     public int size() {
-       
+       return tamanho;
     }
 
     @Override
     public boolean isEmpty() {
-        
+        return false;
     }
 
     // #### adicionais #####
+
+    public no parent(no node){
+        return node.getPai();
+    }
+
     public no filhodaesquerda(no node){
         return node.getFilhoequerda();
     }

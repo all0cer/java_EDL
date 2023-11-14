@@ -6,9 +6,9 @@ public interface Iarverepesquisa {
 
 	Comparador getComparador();
 
-    void setComparator(Comparator c);
+    void setComparator(Comparador c);
 
-	no pesquisar(no no, Object key);
+	no pesquisar(Object key,no node);
 
 	no incluir(Object key);
 
