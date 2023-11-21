@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 public interface Iarverepesquisa {
 
-	Comparador getComparador();
+	comparadale getComparador();
 
-    void setComparator(Comparador c);
+    void setComparator(comparadale c);
 
 	no pesquisar(Object key,no node);
 

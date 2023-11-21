@@ -2,6 +2,7 @@ package filas.src.ArverePesquisa;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class arverepesquisa implements Iarverepesquisa, Comparator {
     no raiz;
@@ -13,26 +14,41 @@ public class arverepesquisa implements Iarverepesquisa, Comparator {
     }
 
     @Override
-    public Comparador getComparador() {
-        
+    public comparadale getComparador() {
+        comparadale compara = new comparadale();
+        return compara;
     }
 
-    @Override
-    public void setComparator(Comparator c) {
+    // @Override
+    // public void setComparator(comparator c) {
         
-    }
+    // }
 
     @Override
     public no pesquisar(Object key, no node) {
         if (isExternal(node)){
             return node;
         }
+        if((Integer)key < (Integer) node.getElemento()){
+            return pesquisar(key, filhodaesquerda(node));
+        }
+
+        else if(key ==  node.getElemento()){
+                return node;
+            }
+
+        else{
+            return pesquisar(key, filhodadireita(node));
+        }
         
     }
 
     @Override
     public no incluir(Object key) {
-        
+        no no_atual = getRaiz();
+        comparadale compara = new comparadale();
+        int resultado = compara.compare(no_atual, no_atual);
+
     }
 
     @Override
@@ -110,12 +126,54 @@ public class arverepesquisa implements Iarverepesquisa, Comparator {
 
     @Override
     public Iterator nos() {
-        
+        return new Iterator<Object>() {
+        private no currentNode = raiz;
+        private Stack<no> pilha = new Stack<>();
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null || !pilha.isEmpty();
+        }
+
+        @Override
+        public Object next() {
+            while (currentNode != null) {
+                pilha.push(currentNode);
+                currentNode = filhodaesquerda(currentNode);
+            }
+
+            no node = pilha.pop();
+            currentNode = filhodadireita(currentNode);
+
+            return node;
+        }
+    };
     }
 
     @Override
     public Iterator elements() {
-       return 
+       return new Iterator<Object>() {
+        private no currentNode = raiz;
+        private Stack<no> pilha = new Stack<>();
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null || !pilha.isEmpty();
+        }
+
+        @Override
+        public Object next() {
+            while (currentNode != null) {
+                pilha.push(currentNode);
+                currentNode = filhodaesquerda(currentNode);
+            }
+
+            no node = pilha.pop();
+            currentNode = filhodadireita(currentNode);
+
+            return node.getElemento();
+        }
+    };
     }
 
     @Override
