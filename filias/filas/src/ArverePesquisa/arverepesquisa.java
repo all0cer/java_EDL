@@ -4,7 +4,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class arverepesquisa implements Iarverepesquisa, Comparator {
+import filas.src.ListaLigada.node;
+
+public class arverepesquisa implements Iarverepesquisa {
     no raiz;
     int tamanho;
 
@@ -18,11 +20,6 @@ public class arverepesquisa implements Iarverepesquisa, Comparator {
         comparadale compara = new comparadale();
         return compara;
     }
-
-    // @Override
-    // public void setComparator(comparator c) {
-        
-    // }
 
     @Override
     public no pesquisar(Object key, no node) {
@@ -46,11 +43,35 @@ public class arverepesquisa implements Iarverepesquisa, Comparator {
     @Override
     public no incluir(Object key) {
         no no_atual = getRaiz();
+        no novoNo = new no(null, key);
         comparadale compara = new comparadale();
-        int resultado = compara.compare(no_atual, no_atual);
-
+        while (true) {
+            int resultado = compara.compare(novoNo, no_atual);
+            if (resultado < 0) {
+                if (filhodaesquerda(no_atual) == null) {
+                    no_atual.setFilhoequerda(novoNo);
+                    novoNo.setPai(no_atual);
+                    return novoNo;
+                }
+                else{
+                    no_atual = filhodaesquerda(no_atual);
+                }
+            }
+            else if (resultado > 0){
+                if (filhodadireita(no_atual) == null) {
+                    no_atual.setFilhodireita(novoNo);
+                    novoNo.setPai(no_atual);
+                    return novoNo;
+                }
+                else{
+                    no_atual = filhodadireita(no_atual);
+                }
+            }
+            else{
+                return no_atual;
+            }
+        }
     }
-
     @Override
     public Object remover(Object key) {
         
