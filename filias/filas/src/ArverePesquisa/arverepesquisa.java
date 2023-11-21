@@ -1,10 +1,8 @@
 package filas.src.ArverePesquisa;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Stack;
 
-import filas.src.ListaLigada.node;
 
 public class arverepesquisa implements Iarverepesquisa {
     no raiz;
@@ -51,6 +49,7 @@ public class arverepesquisa implements Iarverepesquisa {
                 if (filhodaesquerda(no_atual) == null) {
                     no_atual.setFilhoequerda(novoNo);
                     novoNo.setPai(no_atual);
+                    tamanho++;
                     return novoNo;
                 }
                 else{
@@ -61,6 +60,7 @@ public class arverepesquisa implements Iarverepesquisa {
                 if (filhodadireita(no_atual) == null) {
                     no_atual.setFilhodireita(novoNo);
                     novoNo.setPai(no_atual);
+                    tamanho++;
                     return novoNo;
                 }
                 else{
@@ -74,7 +74,34 @@ public class arverepesquisa implements Iarverepesquisa {
     }
     @Override
     public Object remover(Object key) {
-        
+        no noexcluir = pesquisar(key, raiz);
+        if (isExternal(noexcluir)){ //CASO DE NÓ SEM FILHOS
+            if(parent(noexcluir).getFilhoequerda() == noexcluir){
+                parent(noexcluir).setFilhoequerda(null);
+                return noexcluir.getElemento();
+            }
+            else{
+                parent(noexcluir).setFilhodireita(null);
+                return noexcluir.getElemento();
+            }
+        }
+        else if (noexcluir.getFilhodireita() != null && noexcluir.getFilhoequerda() != null){
+                    
+        }
+        else{
+            no filho = (noexcluir.getFilhoequerda() != null) ? noexcluir.getFilhoequerda(): noexcluir.getFilhodireita(); 
+            filho.setPai(parent(noexcluir)); //VOU SER CRIADO POR VÓ
+            if(parent(noexcluir).getFilhoequerda() == noexcluir){
+                parent(noexcluir).setFilhoequerda(filho);
+                return noexcluir.getElemento();
+            }
+            else{
+                parent(noexcluir).setFilhodireita(filho);
+                return noexcluir.getElemento();
+            }
+        }
+
+
     }
 
     @Override
