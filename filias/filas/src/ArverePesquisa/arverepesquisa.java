@@ -86,7 +86,10 @@ public class arverepesquisa implements Iarverepesquisa {
             }
         }
         else if (noexcluir.getFilhodireita() != null && noexcluir.getFilhoequerda() != null){
-                    
+                no substitui = sucessor(filhodadireita(noexcluir));
+                noexcluir.setElemento(substitui.getElemento());
+                remover(sucessor(substitui));
+                return noexcluir.getElemento();
         }
         else{
             no filho = (noexcluir.getFilhoequerda() != null) ? noexcluir.getFilhoequerda(): noexcluir.getFilhodireita(); 
@@ -101,9 +104,16 @@ public class arverepesquisa implements Iarverepesquisa {
             }
         }
 
-
+    
     }
 
+    private no sucessor(no node){
+        while (node.getFilhoequerda() != null) {
+            node = node.getFilhoequerda();
+        }
+        return node;
+    }
+    
     @Override
     public no getRaiz() {
         return raiz;
