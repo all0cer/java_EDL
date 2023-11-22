@@ -1,18 +1,18 @@
 package filas.src.ArverePesquisa;
 import java.util.Comparator;
 
-public class comparadale implements Comparator<no>{
+public class comparadale implements Comparator{
 
     @Override
-    public int compare(no primeiro, no segundo) {
-        if((Integer)primeiro.getElemento() < (Integer)segundo.getElemento()){
-            return 1;
+    public int compare(Object primeiro, Object segundo) {
+        if((Integer)primeiro  < (Integer)segundo){
+            return -1;
         }
-        else if((Integer)primeiro.getElemento() == (Integer)segundo.getElemento()){
+        else if((Integer)primeiro == (Integer)segundo){
             return 0;
         }
         else{
-            return -1;
+            return 1;
         }
     }
 }

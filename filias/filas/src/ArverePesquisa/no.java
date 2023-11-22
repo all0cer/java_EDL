@@ -9,6 +9,8 @@ public class no {
     public no(no pai, Object element){
         this.pai = pai;
         this.elemento = element;
+        this.filhodireita = null;
+        this.filhoequerda = null;
     }
     public Object getElemento() {
         return elemento;

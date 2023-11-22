@@ -7,6 +7,7 @@ import java.util.Stack;
 public class arverepesquisa implements Iarverepesquisa {
     no raiz;
     int tamanho;
+    comparadale compara = new comparadale();
 
     public arverepesquisa(Object elemento){
         raiz = new no(null, elemento);
@@ -21,19 +22,20 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public no pesquisar(Object key, no node) {
-        if (isExternal(node)){
-            return node;
+
+        if (node == null){
+            return null;
         }
-        if((Integer)key < (Integer) node.getElemento()){
-            return pesquisar(key, filhodaesquerda(node));
+        if(compara.compare(key, node.getElemento()) < 0){
+            return pesquisar(key, node.getFilhoequerda());
         }
 
-        else if(key ==  node.getElemento()){
-                return node;
+        else if(compara.compare(key, node.getElemento()) > 0){
+                return pesquisar(key, node.getFilhodireita());
             }
 
         else{
-            return pesquisar(key, filhodadireita(node));
+            return node;
         }
         
     }
@@ -42,9 +44,9 @@ public class arverepesquisa implements Iarverepesquisa {
     public no incluir(Object key) {
         no no_atual = getRaiz();
         no novoNo = new no(null, key);
-        comparadale compara = new comparadale();
         while (true) {
-            int resultado = compara.compare(novoNo, no_atual);
+            int resultado = compara.compare(novoNo.getElemento(), no_atual.getElemento());
+
             if (resultado < 0) {
                 if (filhodaesquerda(no_atual) == null) {
                     no_atual.setFilhoequerda(novoNo);
@@ -56,6 +58,7 @@ public class arverepesquisa implements Iarverepesquisa {
                     no_atual = filhodaesquerda(no_atual);
                 }
             }
+
             else if (resultado > 0){
                 if (filhodadireita(no_atual) == null) {
                     no_atual.setFilhodireita(novoNo);
@@ -67,6 +70,7 @@ public class arverepesquisa implements Iarverepesquisa {
                     no_atual = filhodadireita(no_atual);
                 }
             }
+
             else{
                 return no_atual;
             }
@@ -126,10 +130,17 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public void emOrdem(no node) {
+        if (node == null) {
+             System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
+             return;
+        }
+
         if (isInternal(node)){
             emOrdem(filhodaesquerda(node));
         }
-        System.out.print(node.getElemento());
+
+    System.out.print(node.getElemento() + ", ");
+
         if (isInternal(node)){
             emOrdem(filhodadireita(node));
         }
@@ -137,6 +148,10 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public void preOrdem(no node) {
+        if (node == null) {
+             System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
+             return;
+        }
          System.out.println(node.getElemento());
          if (isInternal(node)){
             System.out.println(node.getElemento());
@@ -147,6 +162,10 @@ public class arverepesquisa implements Iarverepesquisa {
 
     @Override
     public void posOrdem(no node) {
+        if (node == null) {
+             System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
+             return;
+        }
         if (isInternal(node)){
             posOrdem(filhodaesquerda(node));
             posOrdem(filhodadireita(node));
@@ -221,7 +240,7 @@ public class arverepesquisa implements Iarverepesquisa {
 
         @Override
         public Object next() {
-            while (currentNode != null) {
+            while (currentNode != null || !pilha.isEmpty()) {
                 pilha.push(currentNode);
                 currentNode = filhodaesquerda(currentNode);
             }
@@ -271,6 +290,6 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     public boolean isInternal(no node){
-        return (node.getFilhodireita() != null && node.getFilhoequerda() != null);
+        return (node.getFilhodireita() != null || node.getFilhoequerda() != null);
     }
 }
