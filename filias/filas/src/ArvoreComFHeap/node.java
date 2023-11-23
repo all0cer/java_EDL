@@ -2,6 +2,7 @@ package filas.src.ArvoreComFHeap;
 
 public class node {
     private Object elemento;
+
     private node pai;
     private node filhoequerda;
     private node filhodireita;
@@ -9,6 +10,7 @@ public class node {
     public node(node pai, Object element){
         this.pai = pai;
         this.elemento = element;
+     
         this.filhodireita = null;
         this.filhoequerda = null;
     }

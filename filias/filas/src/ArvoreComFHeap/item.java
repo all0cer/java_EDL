@@ -2,24 +2,18 @@ package filas.src.ArvoreComFHeap;
 
 public class item {
     private Object key;
-    Object valor;
-
-    item(Object key, Object valor){
-        this.key = key;
-        this.valor = valor;
-    }
-    public Object getKey() {
-        return key;
-    }
-
-    public Object getValor() {
-        return valor;
-    }
+    private Object valor;
 
     public void setKey(Object key) {
         this.key = key;
     }
-    public void setValor(item valor) {
+    public Object getKey() {
+        return key;
+    }
+    public void setValor(Object valor) {
         this.valor = valor;
+    }
+    public Object getValor() {
+        return valor;
     }
 }
