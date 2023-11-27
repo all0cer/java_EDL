@@ -8,8 +8,6 @@ public interface IArvoreFilaH {
 
 	node pesquisar(Object key,node node );
 
-	node incluir(Object key);
-
 	Object remover(Object key);
 
 	node getRaiz();
@@ -36,11 +34,11 @@ public interface IArvoreFilaH {
 
 	boolean isEmpty();
 
-    void Insert(int key, Object valor); // REFERENCIA ULTIMO NO, WHILE (É filho esquerda?) se for pega o irmao, desce para esquerda
+    void Insert(Object valor); // REFERENCIA ULTIMO NO, WHILE (É filho esquerda?) se for pega o irmao, desce para esquerda
 
-    item removeMin();
+    Object removeMin();
 
-    item Min();
+    Object Min();
 
     void upheap();
 

@@ -11,6 +11,12 @@ public class ArvoreComFHeap implements IArvoreFilaH {
     comparadale compara = new comparadale();
 
 
+    public ArvoreComFHeap(Object elemento){
+        raiz = new node(null, elemento);
+        tamanho = 1;
+        ultimo = raiz;
+    }
+
     @Override
     public comparadale getComparador() {
         comparadale compara = new comparadale();
@@ -37,42 +43,6 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         
     }
 
-    @Override
-    public node incluir(Object key) {
-        node no_atual = getRaiz();
-        node novoNo = new node(null, key);
-        while (true) {
-            int resultado = compara.compare(novoNo.getElemento(), no_atual.getElemento());
-
-            if (resultado < 0) {
-                if (filhodaesquerda(no_atual) == null) {
-                    no_atual.setFilhoequerda(novoNo);
-                    novoNo.setPai(no_atual);
-                    tamanho++;
-                    return novoNo;
-                }
-                else{
-                    no_atual = filhodaesquerda(no_atual);
-                }
-            }
-
-            else if (resultado > 0){
-                if (filhodadireita(no_atual) == null) {
-                    no_atual.setFilhodireita(novoNo);
-                    novoNo.setPai(no_atual);
-                    tamanho++;
-                    return novoNo;
-                }
-                else{
-                    no_atual = filhodadireita(no_atual);
-                }
-            }
-
-            else{
-                return no_atual;
-            }
-        }
-    }
     @Override
     public Object remover(Object key) {
         node noexcluir = pesquisar(key, raiz);
@@ -263,25 +233,47 @@ public class ArvoreComFHeap implements IArvoreFilaH {
     // #### adicionais #####
 
     public node parent(node node){
+        if(node == null){
+             System.out.print("null");
+             return node;
+            }
         return node.getPai();
     }
 
     public node filhodaesquerda(node node){
+        if(node == null){
+             System.out.print("null");
+             return node;
+            }
         return node.getFilhoequerda();
-    }
-
-    public node filhodadireita(node node){
-        return node.getFilhodireita();
-    }
-
-    public node temesquerdo(node node){
-        return node.getFilhoequerda();
-    }
-
-    public node temdireito(node node){
-        return node.getFilhodireita();
     }
     
+
+    public node filhodadireita(node node){
+        if(node == null){
+             System.out.print("null");
+             return node;
+            }
+        return node.getFilhodireita();
+    }
+
+    public boolean temesquerdo(node node){
+        return node.getFilhoequerda() != null;
+    }
+
+    public boolean temdireito(node node){
+        if(node == null){
+             System.out.print("null");
+            }
+        return node.getFilhodireita() != null;
+    }
+    
+    public boolean ehesquerdo(node node){
+        if(node == null){
+             System.out.print("null");
+            }
+        return parent(node).getFilhoequerda() == node;
+    }
     public boolean isExternal(node node){
         return (node.getFilhodireita() == null && node.getFilhoequerda() == null);
     }
@@ -290,34 +282,58 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         return (node.getFilhodireita() != null || node.getFilhoequerda() != null);
     }
 
-    @Override
-    public void Insert(int key, Object valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
+    public node brodi(node node){
+        if (ehesquerdo(node)){
+            return parent(node).getFilhodireita();
+        }
+        return parent(node).getFilhoequerda();
     }
 
     @Override
-    public item removeMin() {
+    public node removeMin() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeMin'");
     }
 
     @Override
-    public item Min() {
+    public node Min() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'Min'");
     }
 
     @Override
     public void upheap() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'upheap'");
     }
 
     @Override
-    public void downheap() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'downheap'");
+    public void Insert(Object valor) {
+        
+        node novo_no = new node(null, valor);
+        node no_atual = ultimo; //APONTA PARA ULTIMO NO
+       
+        while(no_atual != raiz && !ehesquerdo(no_atual)){
+            no_atual = parent(no_atual); //ENQUANTO NÃO FOR FILHO DA ESQUERDA, PEGA O PAI
+        }
+
+        if(no_atual != raiz){
+            no_atual = brodi(no_atual); //QUANDO ENCONTRAR FILHO DA ESQUERDA, PEGA O IRMÃO
+        }
+        else{
+            if(temdireito(raiz)){
+            no_atual = filhodadireita(raiz);
+            }else{
+                raiz.setFilhodireita(novo_no);
+                novo_no.setPai(raiz);
+                ultimo = novo_no;
+                return;
+            } //SE FOR A RAIZ VAI PARA DIREITA
+        }
+
+        while(!isExternal(no_atual)){
+            no_atual = filhodaesquerda(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA ESQUERDA
+        }
+
+        ultimo = no_atual; //ESTA BAGAÇA VAI SER REALMENTE O ULTIMO NO???
     }
 }
 
