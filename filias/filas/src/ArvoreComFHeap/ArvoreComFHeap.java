@@ -13,8 +13,12 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     public ArvoreComFHeap(Object elemento){
         raiz = new node(null, elemento);
+        node p1 = new node(raiz, 7);
+        node p2 = new node(raiz, 5);
+        raiz.setFilhodireita(p2);
+        raiz.setFilhoequerda(p1);
         tamanho = 1;
-        ultimo = raiz;
+        ultimo = p2;
     }
 
     @Override
@@ -316,24 +320,30 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         }
 
         if(no_atual != raiz){
-            no_atual = brodi(no_atual); //QUANDO ENCONTRAR FILHO DA ESQUERDA, PEGA O IRMÃO
-        }
-        else{
-            if(temdireito(raiz)){
-            no_atual = filhodadireita(raiz);
-            }else{
-                raiz.setFilhodireita(novo_no);
-                novo_no.setPai(raiz);
+            no_atual = no_atual.getPai();
+            if(!temdireito(no_atual)){
+                no_atual.setFilhodireita(novo_no);
+                novo_no.setPai(no_atual);
                 ultimo = novo_no;
                 return;
-            } //SE FOR A RAIZ VAI PARA DIREITA
+            }
+            no_atual =  no_atual.getFilhodireita();
         }
 
         while(!isExternal(no_atual)){
             no_atual = filhodaesquerda(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA ESQUERDA
         }
-
-        ultimo = no_atual; //ESTA BAGAÇA VAI SER REALMENTE O ULTIMO NO???
-    }
+        if(!temesquerdo(no_atual)){
+            no_atual.setFilhoequerda(novo_no);
+            novo_no.setPai(no_atual);
+            ultimo = novo_no;
+            return;
+        }else{
+            no_atual.setFilhodireita(novo_no);
+            novo_no.setPai(no_atual);
+            ultimo = novo_no;
+            return;
+        }
+    }    
 }
 
