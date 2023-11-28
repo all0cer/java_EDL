@@ -327,7 +327,11 @@ public class ArvoreComFHeap implements IArvoreFilaH {
                 ultimo = novo_no;
                 return;
             }
-            no_atual =  no_atual.getFilhodireita();
+            if(ehesquerdo(no_atual)){
+                no_atual =  no_atual.getFilhodireita();
+            }else{
+                no_atual =  no_atual.getFilhodireita();
+            }
         }
 
         while(!isExternal(no_atual)){
