@@ -8,7 +8,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
     node raiz;
     int tamanho;
     node ultimo;
-    comparadale compara = new comparadale();
+    public comparadale compara = new comparadale();
 
 
     public ArvoreComFHeap(Object elemento){
@@ -17,7 +17,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         node p2 = new node(raiz, 5);
         raiz.setFilhodireita(p2);
         raiz.setFilhoequerda(p1);
-        tamanho = 1;
+        tamanho = 3;
         ultimo = p2;
     }
 
@@ -102,7 +102,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
     @Override
     public void emOrdem(node node) {
         if (node == null) {
-             System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
+             System.out.print("null, "); // Se o nó for nulo, retorna sem fazer mais nada
              return;
         }
 
@@ -238,7 +238,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     public node parent(node node){
         if(node == null){
-             System.out.print("null");
+             System.out.print("null, ");
              return node;
             }
         return node.getPai();
@@ -246,7 +246,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     public node filhodaesquerda(node node){
         if(node == null){
-             System.out.print("null");
+             System.out.print("null, ");
              return node;
             }
         return node.getFilhoequerda();
@@ -255,7 +255,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     public node filhodadireita(node node){
         if(node == null){
-             System.out.print("null");
+             System.out.print("null, ");
              return node;
             }
         return node.getFilhodireita();
@@ -267,14 +267,14 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     public boolean temdireito(node node){
         if(node == null){
-             System.out.print("null");
+             System.out.print("null, ");
             }
         return node.getFilhodireita() != null;
     }
     
     public boolean ehesquerdo(node node){
         if(node == null){
-             System.out.print("null");
+             System.out.print("null, ");
             }
         return parent(node).getFilhoequerda() == node;
     }
@@ -301,13 +301,25 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     @Override
     public node Min() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Min'");
+        return raiz;
     }
 
     @Override
     public void upheap() {
+        node no_atual = ultimo;
+        comparadale compara = new comparadale();
+        while(no_atual != raiz && compara.compare(no_atual.getElemento(), parent(no_atual).getElemento()) == -1){
+            if(no_atual != null && parent(no_atual) != null){
+                Object temp = no_atual.getElemento();
+                no_atual.setElemento(parent(no_atual).getElemento());
+                parent(no_atual).setElemento(temp);
+                no_atual = parent(no_atual);
+            }else{
+                break;
+            }
+        }
     }
+
 
     @Override
     public void Insert(Object valor) {
@@ -325,12 +337,17 @@ public class ArvoreComFHeap implements IArvoreFilaH {
                 no_atual.setFilhodireita(novo_no);
                 novo_no.setPai(no_atual);
                 ultimo = novo_no;
+                tamanho++;
+                upheap();
                 return;
             }
-            if(ehesquerdo(no_atual)){
+            if(no_atual == raiz){
+                no_atual = no_atual.getFilhodireita();
+            }
+            else if(ehesquerdo(no_atual)){
                 no_atual =  no_atual.getFilhodireita();
             }else{
-                no_atual =  no_atual.getFilhodireita();
+                no_atual =  no_atual.getFilhoequerda();
             }
         }
 
@@ -341,11 +358,15 @@ public class ArvoreComFHeap implements IArvoreFilaH {
             no_atual.setFilhoequerda(novo_no);
             novo_no.setPai(no_atual);
             ultimo = novo_no;
+            tamanho++;
+            upheap();
             return;
         }else{
             no_atual.setFilhodireita(novo_no);
             novo_no.setPai(no_atual);
             ultimo = novo_no;
+            tamanho++;
+            upheap();
             return;
         }
     }    

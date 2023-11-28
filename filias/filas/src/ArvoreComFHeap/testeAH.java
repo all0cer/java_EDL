@@ -7,6 +7,7 @@ public class testeAH {
     arvore.Insert(8);
     arvore.Insert(10);
     arvore.Insert(12);
+    arvore.Insert(1); //TESTANDO FUNCIONAMENTO UPHEAP();
     arvore.emOrdem(arvore.getRaiz());
 }
 }

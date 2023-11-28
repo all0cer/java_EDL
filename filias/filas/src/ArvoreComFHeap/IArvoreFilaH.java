@@ -41,6 +41,4 @@ public interface IArvoreFilaH {
     Object Min();
 
     void upheap();
-
-    void downheap();
 }
