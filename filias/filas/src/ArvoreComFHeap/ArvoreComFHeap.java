@@ -295,8 +295,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
 
     @Override
     public node removeMin() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeMin'");
+        
     }
 
     @Override
@@ -327,7 +326,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         node novo_no = new node(null, valor);
         node no_atual = ultimo; //APONTA PARA ULTIMO NO
        
-        while(no_atual != raiz && !ehesquerdo(no_atual)){
+        while(no_atual != raiz && !ehesquerdo(no_atual)){ //E
             no_atual = parent(no_atual); //ENQUANTO NÃO FOR FILHO DA ESQUERDA, PEGA O PAI
         }
 
@@ -370,5 +369,70 @@ public class ArvoreComFHeap implements IArvoreFilaH {
             return;
         }
     }    
+     public void remove2(Object valor) {
+        
+        //swap(raiz, ultimo) 
+        node no_atual = ultimo; //APONTA PARA ULTIMO NO
+       
+        while(no_atual != raiz && ehesquerdo(no_atual)){ //E
+            no_atual = parent(no_atual); //ENQUANTO NÃO FOR FILHO DA ESQUERDA, PEGA O PAI
+        }
+
+            if(no_atual == raiz){
+                while(!isExternal(no_atual)){
+                    no_atual = filhodadireita(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA DIREITA
+                }
+                if(ehesquerdo(ultimo)){
+                    ultimo.getPai().setFilhoequerda(null);
+                }else{
+                    ultimo.getPai().setFilhodireita(null);
+                }
+                ultimo = no_atual;
+                return;
+            }
+        
+        no_atual = no_atual.getPai().getFilhoequerda(); //CASO FOR IRMAO DIREITO
+        while(!isExternal(no_atual)){
+                    no_atual = filhodadireita(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA DIREITA
+                }
+        if(ehesquerdo(ultimo)){
+            ultimo.getPai().setFilhoequerda(null);
+        }else{
+            ultimo.getPai().setFilhodireita(null);
+        }
+        ultimo = no_atual;
+    }  
+    public void insert2(Object valor) {
+        
+        node novo_no = new node(null, valor);
+        node no_atual = ultimo; //APONTA PARA ULTIMO NO
+       
+        while(no_atual != raiz && !ehesquerdo(no_atual)){ //E
+            no_atual = parent(no_atual); //ENQUANTO NÃO FOR FILHO DA ESQUERDA, PEGA O PAI
+        }
+
+            if(no_atual == raiz){
+                while(!isExternal(no_atual)){
+                    no_atual = filhodaesquerda(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA esquerda
+                }
+                if(ehesquerdo(no_atual)){
+                    ultimo.getPai().setFilhoequerda(null);
+                }else{
+                    ultimo.getPai().setFilhodireita(null);
+                }
+                ultimo = no_atual;
+                return;
+            }
+        
+        no_atual = no_atual.getPai().getFilhoequerda(); //CASO FOR IRMAO DIREITO
+        while(!isExternal(no_atual)){
+                    no_atual = filhodadireita(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA DIREITA
+                }
+        if(ehesquerdo(ultimo)){
+            ultimo.getPai().setFilhoequerda(null);
+        }else{
+            ultimo.getPai().setFilhodireita(null);
+        }
+        ultimo = no_atual;  
 }
 
