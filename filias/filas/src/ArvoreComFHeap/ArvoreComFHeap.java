@@ -416,23 +416,27 @@ public class ArvoreComFHeap implements IArvoreFilaH {
                     no_atual = filhodaesquerda(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA esquerda
                 }
                 if(ehesquerdo(no_atual)){
-                    ultimo.getPai().setFilhoequerda(null);
-                }else{
-                    ultimo.getPai().setFilhodireita(null);
+                    no_atual.setFilhoequerda(novo_no);
+                    novo_no.setPai(no_atual);
+                    ultimo = novo_no;
+                    return;
                 }
-                ultimo = no_atual;
-                return;
             }
         
-        no_atual = no_atual.getPai().getFilhoequerda(); //CASO FOR IRMAO DIREITO
-        while(!isExternal(no_atual)){
-                    no_atual = filhodadireita(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA DIREITA
-                }
-        if(ehesquerdo(ultimo)){
-            ultimo.getPai().setFilhoequerda(null);
-        }else{
-            ultimo.getPai().setFilhodireita(null);
+        if(no_atual.getPai().getFilhodireita() == null){
+                    no_atual.getPai().setFilhodireita(novo_no);
+                    novo_no.setPai(no_atual.getPai());
+                    ultimo = novo_no;
+                    return;
         }
-        ultimo = no_atual;  
+        no_atual = no_atual.getPai().getFilhodireita();
+        while(!isExternal(no_atual)){
+                    no_atual = filhodaesquerda(no_atual); //ENQUANTO NÃO FOR FOLHA, DESCE PARA DIREITA
+                }
+            no_atual.getPai().setFilhodireita(novo_no);
+            novo_no.setPai(no_atual.getPai());
+            ultimo = novo_no;
+            return;
+        } 
 }
 
