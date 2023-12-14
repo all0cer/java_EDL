@@ -5,7 +5,7 @@ public interface Ihashlinear {
 
     item removeElement(item chave);
     
-    item InsertElement(item item);
+    item InsertElement(int chave, Object valor);
 
     void Keys();
 

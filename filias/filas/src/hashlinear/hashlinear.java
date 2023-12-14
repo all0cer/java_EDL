@@ -6,9 +6,9 @@ public class hashlinear implements Ihashlinear {
     int size;
     
 
-    public hashlinear(int tamanho){
+    public hashlinear(){
         this.capacity = 13;
-        this.hashtable = new item[tamanho];
+        this.hashtable = new item[capacity];
         this.size = 0;
     }
     @Override
@@ -21,7 +21,9 @@ public class hashlinear implements Ihashlinear {
         }
         throw new IllegalArgumentException();
     }
-
+    private int FindIndex(int valor){
+            return valor%13;
+    }
     @Override
     public item removeElement(item chave) {
         // TODO Auto-generated method stub
@@ -29,7 +31,7 @@ public class hashlinear implements Ihashlinear {
     }
 
     @Override
-    public item InsertElement(item item) {
+    public item InsertElement(int chave, Object valor) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'InsertElement'");
     }
