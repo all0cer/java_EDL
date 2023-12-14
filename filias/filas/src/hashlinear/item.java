@@ -1,17 +1,17 @@
 package filas.src.hashlinear;
 
 public class item {
-    Object key;
+    int key;
     Object valor;
 
-    public item(Object chave, Object valor){
+    public item(int chave, Object valor){
         this.key = chave;
         this.valor = valor;
     }
-    public Object getKey() {
+    public int getKey() {
         return key;
     }
-    public void setKey(Object key) {
+    public void setKey(int key) {
         this.key = key;
     }
     public Object getValor() {

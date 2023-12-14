@@ -2,29 +2,34 @@ package filas.src.hashlinear;
 
 public class hashlinear implements Ihashlinear {
     int capacity;
-    Object [] hashtable;
+    item [] hashtable;
     int size;
     
 
     public hashlinear(int tamanho){
         this.capacity = 13;
-        this.hashtable = new Object[tamanho];
+        this.hashtable = new item[tamanho];
         this.size = 0;
     }
     @Override
-    public Object findElement(Object chave) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findElement'");
+    public item findElement(int chave) {
+        for(int i=0; i>size; i++){
+            item chave_atual = hashtable[i];
+            if(chave_atual.key == chave){
+                return chave_atual;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     @Override
-    public Object removeElement(Object chave) {
+    public item removeElement(item chave) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeElement'");
     }
 
     @Override
-    public Object InsertElement(Object item) {
+    public item InsertElement(item item) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'InsertElement'");
     }

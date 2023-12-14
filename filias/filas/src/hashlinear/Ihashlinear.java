@@ -1,11 +1,11 @@
 package filas.src.hashlinear;
 
 public interface Ihashlinear {
-    Object findElement(Object chave);
+    item findElement(int chave);
 
-    Object removeElement(Object chave);
+    item removeElement(item chave);
     
-    Object InsertElement(Object item);
+    item InsertElement(item item);
 
     void Keys();
 
