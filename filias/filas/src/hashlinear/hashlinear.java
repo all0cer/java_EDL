@@ -11,6 +11,8 @@ public class hashlinear implements Ihashlinear {
         this.capacity = 13;
         this.hashtable = new item[capacity];
         this.size = 0;
+        this.AVALIABLE.key = -333;
+        this.AVALIABLE.valor = "AVALIABLE";
     }
     @Override
     public item findElement(String valor) {
@@ -40,18 +42,20 @@ public class hashlinear implements Ihashlinear {
 
     @Override
     public item removeElement(String valor) {
-        findElement(valor)
+        item aremover = findElement(valor);
+        aremover = AVALIABLE;
+
     }
 
     @Override
     public item InsertElement(int chave, String valor) {
         item novo_item = new item(chave, valor);
         int index = FindIndex(chave);
-        if(hashtable[index] == null){
+        if(hashtable[index] == null || hashtable[index] ==  AVALIABLE){
             hashtable[index] = novo_item;
             return novo_item;
         }else{
-            while(hashtable[index] != null || hashtable[index] ==  ){
+            while(hashtable[index] != null || hashtable[index] ==  AVALIABLE){
                 index = (index+1)%capacity;
                 novo_item.key += 1;
             } 
