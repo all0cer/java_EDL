@@ -2,9 +2,9 @@ package filas.src.hashlinear;
 
 public class item {
     int key;
-    Object valor;
+    String valor;
 
-    public item(int chave, Object valor){
+    public item(int chave, String valor){
         this.key = chave;
         this.valor = valor;
     }
@@ -17,7 +17,7 @@ public class item {
     public Object getValor() {
         return valor;
     }
-    public void setValor(Object valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 }
