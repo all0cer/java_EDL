@@ -4,63 +4,83 @@ public class hashlinear implements Ihashlinear {
     int capacity;
     item [] hashtable;
     int size;
-    item AVALIABLE;
     
 
     public hashlinear(){
         this.capacity = 13;
         this.hashtable = new item[capacity];
         this.size = 0;
-        this.AVALIABLE.key = -333;
-        this.AVALIABLE.valor = "AVALIABLE";
     }
+
     @Override
     public item findElement(String valor) {
-        for(int i=0; i>size; i++){
+        for(int i=0; i<size; i++){
             item item_atual = hashtable[i];
-            if(item_atual.valor == valor){
+            if(item_atual != null && item_atual.valor == valor){
                 return item_atual;
             }
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Não Há elemento com esse valor");
     }
-
-    public item findKey(int chave) {
-        for(int i=0; i>size; i++){
-            item item_atual = hashtable[i];
-            if(item_atual.key == chave){
-                return item_atual;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
 
     private int FindIndex(int valor){
             return valor%13;
     }
 
     @Override
-    public item removeElement(String valor) {
-        item aremover = findElement(valor);
-        aremover = AVALIABLE;
-
+    public item removeElement(int chave) {
+        for(int i=0; i<size; i++){
+            item item_atual = hashtable[i];
+            if(item_atual != null && item_atual.key == chave){
+                size--;
+                return hashtable[i] = null;
+            }
+        }
+        throw new IllegalArgumentException("Não Há elemento com esse valor");
     }
 
     @Override
     public item InsertElement(int chave, String valor) {
+        if((capacity/2)<size){
+            DuplicarArray();
+        }
         item novo_item = new item(chave, valor);
         int index = FindIndex(chave);
-        if(hashtable[index] == null || hashtable[index] ==  AVALIABLE){
+        if(hashtable[index] == null){
             hashtable[index] = novo_item;
+            size++;
             return novo_item;
         }else{
-            while(hashtable[index] != null || hashtable[index] ==  AVALIABLE){
+            while(hashtable[index] != null){
                 index = (index+1)%capacity;
                 novo_item.key += 1;
             } 
         }
         hashtable[index] = novo_item;
+        size++;
+        return novo_item;
+    }
+
+    public item InsertElementDuplo(int chave, String valor) {
+        if((capacity/2)<size){
+            DuplicarArray();
+        }
+        int j = 1;
+        item novo_item = new item(chave, valor);
+        int index = FindIndex(chave);
+        if(hashtable[index] == null){
+            hashtable[index] = novo_item;
+            size++;
+            return novo_item;
+        }else{
+            while(hashtable[index] != null){
+                index = (index+(j * index))%capacity;
+                j++;
+                novo_item.key += 1;
+            } 
+        }
+        hashtable[index] = novo_item;
+        size++;
         return novo_item;
     }
 
@@ -93,10 +113,35 @@ public class hashlinear implements Ihashlinear {
             }
             System.out.println("]");
     }
-    @Override
-    public item removeKey(int chave) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeKey'");
+
+    public boolean isEmpty(){
+        return size==0;
+    }
+    public static boolean ehPrimo(int numero) {
+        if (numero <= 1) {
+            return false; // Números menores ou iguais a 1 não são primos
+        }
+
+        for (int i = 2; i <= Math.sqrt(numero); i++) {
+            if (numero % i == 0) {
+                return false; // Se for divisível por algum número entre 2 e a raiz quadrada, não é primo
+            }
+        }
+
+        return true; // Se não foi divisível por nenhum número, é primo
+    }
+
+    public void DuplicarArray(){
+        int new_capacity = (capacity*2);
+        while(!ehPrimo(new_capacity)){
+            new_capacity++;
+        }
+        item [] new_hashtable = new item[new_capacity];
+        for(int i=0; i<capacity; i++){
+            new_hashtable[i] = hashtable[i];
+        }
+        hashtable = new_hashtable;
+        capacity = new_capacity;
     }
     
 }
