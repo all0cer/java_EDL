@@ -117,6 +117,7 @@ public class hashlinear implements Ihashlinear {
     public boolean isEmpty(){
         return size==0;
     }
+    
     public static boolean ehPrimo(int numero) {
         if (numero <= 1) {
             return false; // Números menores ou iguais a 1 não são primos

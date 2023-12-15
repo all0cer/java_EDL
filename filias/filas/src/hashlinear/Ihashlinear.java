@@ -7,6 +7,10 @@ public interface Ihashlinear {
     
     item InsertElement(int chave, String valor);
 
+    item InsertElementDuplo(int chave, String valor);
+
+    void DuplicarArray();
+
     void Keys();
 
     void Elements();
