@@ -4,12 +4,15 @@ public class hashlinear implements Ihashlinear {
     int capacity;
     item [] hashtable;
     int size;
+    item AVAILABLE;
+
     
 
     public hashlinear(){
         this.capacity = 13;
         this.hashtable = new item[capacity];
         this.size = 0;
+        this.AVAILABLE = new item(-99, "AVAILABLE");
     }
 
     @Override
@@ -33,7 +36,7 @@ public class hashlinear implements Ihashlinear {
             item item_atual = hashtable[i];
             if(item_atual != null && item_atual.key == chave){
                 size--;
-                return hashtable[i] = null;
+                return hashtable[i] = AVAILABLE;
             }
         }
         throw new IllegalArgumentException("Não Há elemento com esse valor");

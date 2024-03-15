@@ -293,10 +293,7 @@ public class ArvoreComFHeap implements IArvoreFilaH {
         return parent(node).getFilhoequerda();
     }
 
-    @Override
-    public node removeMin() {
-        
-    }
+
 
     @Override
     public node Min() {

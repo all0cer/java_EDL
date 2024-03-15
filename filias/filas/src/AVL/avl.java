@@ -7,15 +7,46 @@ import filas.src.ArverePesquisa.comparadale;
 public class avl extends arverepesquisa {
 
     comparadale compara = new comparadale();
+    int tamanho = 0;
+    nodeavl raiz;
 
     public avl(Object elemento) {
         super(elemento);
+        raiz = new nodeavl(null, elemento);
+        tamanho = 1;
     }
 
-    @Override
-    public no incluir(Object key) {
-        return super.incluir(key);
+    public void incluiravl(Object elemento){
+        nodeavl no_atual = raiz;
+        nodeavl novo_no = new nodeavl(null, elemento);
+        while (true) {
+            int resultado = compara.compare(novo_no.getElemento(), no_atual.getElemento());
+
+            if (resultado < 0) {
+                if ((nodeavl) filhodaesquerda(no_atual) == null) {
+                    no_atual.setFilhoequerda(novo_no);
+                    novo_no.setPai(no_atual);
+                    tamanho++;
+                }
+                else{
+                    no_atual = (nodeavl) filhodaesquerda(no_atual);
+                }
+            }
+
+            else if (resultado > 0){
+                if (filhodadireita(no_atual) == null) {
+                    no_atual.setFilhodireita(novo_no);
+                    novo_no.setPai(no_atual);
+                    tamanho++;
+                }
+                else{
+                    no_atual = (nodeavl) filhodadireita(no_atual);
+                }
+            }
+
+        }
     }
+    
 
     public boolean soudireito(nodeavl filho){
         nodeavl pai = (nodeavl) filho.getPai();
@@ -104,5 +135,5 @@ public class avl extends arverepesquisa {
             }
         }
     }
-    
 }
+
