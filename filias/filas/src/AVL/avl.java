@@ -16,7 +16,12 @@ public class avl extends arverepesquisa {
         tamanho = 1;
     }
 
-    public void incluiravl(Object elemento){
+    @Override
+    public nodeavl getRaiz(){
+        return this.raiz;
+    }
+
+    public nodeavl incluiravl(Object elemento){
         nodeavl no_atual = raiz;
         nodeavl novo_no = new nodeavl(null, elemento);
         while (true) {
@@ -27,6 +32,8 @@ public class avl extends arverepesquisa {
                     no_atual.setFilhoequerda(novo_no);
                     novo_no.setPai(no_atual);
                     tamanho++;
+                    att(novo_no);
+                    return novo_no;
                 }
                 else{
                     no_atual = (nodeavl) filhodaesquerda(no_atual);
@@ -34,10 +41,12 @@ public class avl extends arverepesquisa {
             }
 
             else if (resultado > 0){
-                if (filhodadireita(no_atual) == null) {
+                if ((nodeavl)filhodadireita(no_atual) == null) {
                     no_atual.setFilhodireita(novo_no);
                     novo_no.setPai(no_atual);
                     tamanho++;
+                    att(novo_no);
+                    return novo_no;
                 }
                 else{
                     no_atual = (nodeavl) filhodadireita(no_atual);
@@ -102,7 +111,7 @@ public class avl extends arverepesquisa {
 
     public void att(nodeavl novo){
         while(true){
-           nodeavl no_pai = (nodeavl )novo.getPai();
+           nodeavl no_pai = (nodeavl)novo.getPai();
             if(soudireito(novo)){
                 no_pai.setFator(no_pai.getFator()-1);
                 if(no_pai.getFator() == 2 || no_pai.getFator() == -2){
@@ -128,9 +137,11 @@ public class avl extends arverepesquisa {
 
                 if(resultado == 1){
                     no_pai.setFator(no_pai.getFator()-1);
+                    break;
                 }
                 else if (resultado == -1){
                     no_pai.setFator(no_pai.getFator()+1);
+                    break;
                 }
             }
         }
