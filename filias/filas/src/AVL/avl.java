@@ -128,6 +128,7 @@ public class avl extends arverepesquisa {
                 no_pai.setFator(no_pai.getFator()-1);
                 if(no_pai.getFator() == 2 || no_pai.getFator() == -2){
                     rotacao(no_pai);
+                    break;
                 }
                 if(no_pai.getFator() == 0 || no_pai == (nodeavl) getRaiz()){
                     break;
@@ -138,6 +139,7 @@ public class avl extends arverepesquisa {
                 no_pai.setFator(no_pai.getFator()+1);
                 if(no_pai.getFator() == 2 || no_pai.getFator() == -2){
                     rotacao(no_pai);
+                    break;
                 }
                 if(no_pai.getFator() == 0 || no_pai == (nodeavl) getRaiz()){
                     break;
