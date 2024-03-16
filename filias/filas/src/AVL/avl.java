@@ -59,7 +59,10 @@ public class avl extends arverepesquisa {
 
     public boolean soudireito(nodeavl filho){
         nodeavl pai = (nodeavl) filho.getPai();
-        if(filho == pai.getFilhodireita()){
+        if(pai.getFilhodireita() == null){
+            return false;
+        }
+        else if(filho == pai.getFilhodireita()){
             return true;
         }
         else{
@@ -76,7 +79,16 @@ public class avl extends arverepesquisa {
             return false;
         }
     }
+
     public void rds(nodeavl node){
+        nodeavl filhoesquerdo = (nodeavl) node.getFilhoequerda();
+
+        filhoesquerdo.setFilhodireita(node);
+        filhoesquerdo.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+
+        node.setFilhoequerda(null);
+        node.setPai(filhoesquerdo);
+
         
     }
 
