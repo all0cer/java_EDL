@@ -85,6 +85,12 @@ public class avl extends arverepesquisa {
 
         filhoesquerdo.setFilhodireita(node);
         filhoesquerdo.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+        if(souesquerdo(node)){
+            filhoesquerdo.getPai().setFilhoequerda(filhoesquerdo);
+        }
+        else{
+            filhoesquerdo.getPai().setFilhodireita(filhoesquerdo);
+        }
 
         node.setFilhoequerda(null);
         node.setPai(filhoesquerdo);
@@ -97,6 +103,12 @@ public class avl extends arverepesquisa {
 
         filhodireito.setFilhoequerda(node);
         filhodireito.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+        if(soudireito(node)){
+            filhodireito.getPai().setFilhodireita(filhodireito);
+        }
+        else{
+            filhodireito.getPai().setFilhoequerda(filhodireito);
+        }
 
         node.setFilhodireita(null);
         node.setPai(filhodireito);
