@@ -3,6 +3,7 @@ package filas.src.AVL;
 import filas.src.ArverePesquisa.arverepesquisa;
 import filas.src.ArverePesquisa.no;
 import filas.src.ArverePesquisa.comparadale;
+import java.math.*;
 
 public class avl extends arverepesquisa {
 
@@ -55,7 +56,24 @@ public class avl extends arverepesquisa {
 
         }
     }
+
+    public int max(int fb, int zero){
+        if(fb > zero){
+            return fb;
+        }
+        else{
+            return zero;
+        }
+    }
     
+    public int min(int fb, int zero){
+        if(fb < zero){
+            return fb;
+        }
+        else{
+            return zero;
+        }
+    }
 
     public boolean soudireito(nodeavl filho){
         nodeavl pai = (nodeavl) filho.getPai();
@@ -83,6 +101,12 @@ public class avl extends arverepesquisa {
     public void rds(nodeavl node){
         nodeavl filhoesquerdo = (nodeavl) node.getFilhoequerda();
 
+        int novo_fb = node.getFator() + 1 - min(filhoesquerdo.getFator(), 0);
+        int novo_fa = filhoesquerdo.getFator() + 1 + max(novo_fb, 0);
+
+        node.setFator(novo_fb);
+        filhoesquerdo.setFator(novo_fa);
+
         filhoesquerdo.setFilhodireita(node);
         filhoesquerdo.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
         if(souesquerdo(node)){
@@ -101,8 +125,15 @@ public class avl extends arverepesquisa {
     public void res(nodeavl node){
         nodeavl filhodireito = (nodeavl) node.getFilhodireita();
 
+        int novo_fb = node.getFator() + 1 - min(filhodireito.getFator(), 0);
+        int novo_fa = filhodireito.getFator() + 1 + max(novo_fb, 0);
+
+        node.setFator(novo_fb);
+        filhodireito.setFator(novo_fa);
+
         filhodireito.setFilhoequerda(node);
         filhodireito.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+
         if(soudireito(node)){
             filhodireito.getPai().setFilhodireita(filhodireito);
         }
