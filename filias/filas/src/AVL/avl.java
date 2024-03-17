@@ -77,7 +77,10 @@ public class avl extends arverepesquisa {
 
     public boolean soudireito(nodeavl filho){
         nodeavl pai = (nodeavl) filho.getPai();
-        if(pai.getFilhodireita() == null){
+        if(pai == null){
+            return false;
+        }
+        else if(pai.getFilhodireita() == null){
             return false;
         }
         else if(filho == pai.getFilhodireita()){
@@ -90,7 +93,10 @@ public class avl extends arverepesquisa {
 
     public boolean souesquerdo(nodeavl filho){
         nodeavl pai = (nodeavl) filho.getPai();
-        if(filho == pai.getFilhoequerda()){
+        if(pai == null){
+            return false;
+        }
+        else if(filho == pai.getFilhoequerda()){
             return true;
         }
         else{
@@ -101,7 +107,7 @@ public class avl extends arverepesquisa {
     public void rds(nodeavl node){
         nodeavl filhoesquerdo = (nodeavl) node.getFilhoequerda();
 
-        int novo_fb = node.getFator() + 1 - min(filhoesquerdo.getFator(), 0);
+        int novo_fb = node.getFator() - 1 - min(filhoesquerdo.getFator(), 0);
         int novo_fa = filhoesquerdo.getFator() + 1 + max(novo_fb, 0);
 
         node.setFator(novo_fb);
@@ -125,14 +131,22 @@ public class avl extends arverepesquisa {
     public void res(nodeavl node){
         nodeavl filhodireito = (nodeavl) node.getFilhodireita();
 
-        int novo_fb = node.getFator() + 1 - min(filhodireito.getFator(), 0);
+        int novo_fb = node.getFator() - 1 - min(filhodireito.getFator(), 0);
         int novo_fa = filhodireito.getFator() + 1 + max(novo_fb, 0);
 
         node.setFator(novo_fb);
         filhodireito.setFator(novo_fa);
 
+        if(node == getRaiz()){
+            // node.setFilhodireita(filhodireito.getFilhoequerda());
+            // filhodireito.getFilhoequerda().setPai(node);
+            // node.setPai(filhodireito);
+            // this.raiz = filhodireito;
+        }
+
         filhodireito.setFilhoequerda(node);
         filhodireito.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+        
 
         if(soudireito(node)){
             filhodireito.getPai().setFilhodireita(filhodireito);
@@ -145,11 +159,17 @@ public class avl extends arverepesquisa {
         node.setPai(filhodireito);
     }
 
+    public void rde(nodeavl node){
+        rds((nodeavl) node.getFilhodireita());
+        res(node);
+    }
+
     public void rotacao(nodeavl node){
         nodeavl filhoesquerdo = (nodeavl) node.getFilhoequerda();
         nodeavl filhodireito = (nodeavl) node.getFilhodireita();
         if(node.getFator() == -2 && filhodireito.getFator() > 0 ){
-            //rotacao dupla direita
+            //rotacao dupla esquerda
+            rde(node);
         }
         else if(node.getFator() == 2 && filhoesquerdo.getFator() < 0){
             //rotacao dupla esquerda
