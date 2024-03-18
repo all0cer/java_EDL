@@ -2,6 +2,7 @@ package filas.src.AVL;
 
 import filas.src.ArverePesquisa.arverepesquisa;
 import filas.src.ArverePesquisa.no;
+import filas.src.ArvoreComFHeap.node;
 import filas.src.ArverePesquisa.comparadale;
 import java.math.*;
 
@@ -131,32 +132,34 @@ public class avl extends arverepesquisa {
     public void res(nodeavl node){
         nodeavl filhodireito = (nodeavl) node.getFilhodireita();
 
-        int novo_fb = node.getFator() - 1 - min(filhodireito.getFator(), 0);
-        int novo_fa = filhodireito.getFator() + 1 + max(novo_fb, 0);
+        int novo_fb = (node.getFator() + 1) - (min(filhodireito.getFator(), 0));
+        int novo_fa = (filhodireito.getFator() + 1) + (max(novo_fb, 0));
 
         node.setFator(novo_fb);
         filhodireito.setFator(novo_fa);
 
-        if(node == getRaiz()){
-            // node.setFilhodireita(filhodireito.getFilhoequerda());
-            // filhodireito.getFilhoequerda().setPai(node);
-            // node.setPai(filhodireito);
-            // this.raiz = filhodireito;
-        }
+        
+        if(node.getPai() == null){    
+            filhodireito.setPai(null);
+            node.setFilhodireita(filhodireito.getFilhoequerda());
+            if(filhodireito.getFilhoequerda() != null){
+                filhodireito.getFilhoequerda().setPai(node);
+            }
+            filhodireito.setFilhoequerda(node);
+            node.setPai(filhodireito);
+            this.raiz = filhodireito;
+        } 
+        else{
+            filhodireito.setPai(node.getPai());
+            node.setFilhodireita(null);
+            node.setPai(filhodireito);
+            filhodireito.setFilhoequerda(node);
+            filhodireito.getPai().setFilhodireita(filhodireito);
 
-        filhodireito.setFilhoequerda(node);
-        filhodireito.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
+        }
         
 
-        if(soudireito(node)){
-            filhodireito.getPai().setFilhodireita(filhodireito);
-        }
-        else{
-            filhodireito.getPai().setFilhoequerda(filhodireito);
-        }
-
-        node.setFilhodireita(null);
-        node.setPai(filhodireito);
+        
     }
 
     public void rde(nodeavl node){
