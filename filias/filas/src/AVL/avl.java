@@ -80,33 +80,63 @@ public class avl extends arverepesquisa {
         
     }
 
-    public Object remover(Object key) {
+    public Object removeravl(Object key) {
         nodeavl noexcluir = pesquisaravl(key, raiz);
         if (isExternal(noexcluir)){ //CASO DE NÓ SEM FILHOS
             if(noexcluir.getPai().getFilhoequerda() == noexcluir){
                 noexcluir.getPai().setFilhoequerda(null);
+                attremover((nodeavl)noexcluir.getPai());
                 return noexcluir.getElemento();
             }
             else{
                 noexcluir.getPai().setFilhodireita(null);
+                attremover((nodeavl)noexcluir.getPai());
                 return noexcluir.getElemento();
             }
         }
         else if (noexcluir.getFilhodireita() != null && noexcluir.getFilhoequerda() != null){ //NÓ COM DOIS FILHOS
-                nodeavl substitui = sucessoravl((nodeavl) filhodadireita(noexcluir));
-                noexcluir.setElemento(substitui.getElemento());
-                remover(sucessoravl(substitui));
-                return noexcluir.getElemento();
+            nodeavl sucessor = sucessoravl((nodeavl) noexcluir.getFilhodireita());
+            Object temp = sucessor.getElemento();
+            noexcluir.setElemento(temp);
+            noexcluir.setElemento(sucessor.getElemento());
+            if(soudireito(sucessor)){
+                if(sucessor.getFilhodireita() == null){
+                    sucessor.getPai().setFilhodireita(null);
+                    sucessor.setPai(null);
+                }
+                else{
+                    sucessor.getPai().setFilhodireita(sucessor.getFilhodireita());
+                    sucessor.getFilhodireita().setPai(sucessor.getPai());
+                    sucessor.setPai(null);
+                    sucessor.setFilhodireita(null);
+                }
+            } 
+            else{
+                if(sucessor.getFilhoequerda() == null){
+                    sucessor.getPai().setFilhoequerda(null);
+                    sucessor.setPai(null);
+                }
+                else{
+                    sucessor.getPai().setFilhoequerda(sucessor.getFilhoequerda());
+                    sucessor.getFilhoequerda().setPai(sucessor.getPai());
+                    sucessor.setPai(null);
+                    sucessor.setFilhoequerda(null);
+                }
+            }
+            
+            return noexcluir.getElemento();
         }
         else{
             nodeavl filho = (noexcluir.getFilhoequerda() != null) ? (nodeavl) noexcluir.getFilhoequerda(): (nodeavl) noexcluir.getFilhodireita(); //NÓ COM UM FILHO
             filho.setPai(noexcluir.getPai()); //VOU SER CRIADO POR VÓ
             if(noexcluir.getPai().getFilhoequerda() == noexcluir){
                 noexcluir.getPai().setFilhoequerda(filho);
+                attremover((nodeavl)noexcluir.getPai());
                 return noexcluir.getElemento();
             }
             else{
                 noexcluir.getPai().setFilhodireita(filho);
+                attremover((nodeavl)noexcluir.getPai());
                 return noexcluir.getElemento();
             }
         }
@@ -310,6 +340,31 @@ public class avl extends arverepesquisa {
                     break;
                 }
             }
+        }
+    }
+
+    public void attremover(nodeavl novo){
+        while (novo != null) {
+            if(getRaiz() == novo){
+                break;
+            }
+            nodeavl no_pai = (nodeavl) novo.getPai();
+            if (soudireito(novo)) {
+                no_pai.setFator(no_pai.getFator() + 1);
+            } else if (souesquerdo(novo)) {
+                no_pai.setFator(no_pai.getFator() - 1);
+            }
+    
+            if (no_pai.getFator() == 2 || no_pai.getFator() == -2) {
+                rotacao(no_pai);
+                if (no_pai == raiz) {
+                    break;
+                }
+            } else if (no_pai.getFator() != 0) {
+                break;
+            }
+    
+            novo = no_pai;
         }
     }
 
