@@ -9,7 +9,6 @@ public class testeavl {
             arvore.incluiravl(10);
             arvore.incluiravl(40);
             arvore.incluiravl(30);
-            System.out.println(arvore.getRaiz().getElemento());
-            System.out.println(arvore.getRaiz().getFilhodireita().getElemento());
-            System.out.println(arvore.getRaiz().getFilhoequerda().getElemento());
+            arvore.remover(90);
+            arvore.mostraravl();
     }}

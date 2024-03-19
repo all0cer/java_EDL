@@ -292,4 +292,6 @@ public class arverepesquisa implements Iarverepesquisa {
     public boolean isInternal(no node){
         return (node.getFilhodireita() != null || node.getFilhoequerda() != null);
     }
+
+    
 }
