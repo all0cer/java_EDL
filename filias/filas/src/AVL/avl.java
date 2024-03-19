@@ -108,24 +108,35 @@ public class avl extends arverepesquisa {
     public void rds(nodeavl node){
         nodeavl filhoesquerdo = (nodeavl) node.getFilhoequerda();
 
-        int novo_fb = node.getFator() - 1 - min(filhoesquerdo.getFator(), 0);
-        int novo_fa = filhoesquerdo.getFator() + 1 + max(novo_fb, 0);
+        int novo_fb = (node.getFator() + 1) - (min(filhoesquerdo.getFator(), 0));
+        int novo_fa = (filhoesquerdo.getFator() + 1) + (max(novo_fb, 0));
 
         node.setFator(novo_fb);
         filhoesquerdo.setFator(novo_fa);
 
-        filhoesquerdo.setFilhodireita(node);
-        filhoesquerdo.setPai(node.getPai()); //VAI SER CRIADO POR VÓ
-        if(souesquerdo(node)){
-            filhoesquerdo.getPai().setFilhoequerda(filhoesquerdo);
-        }
+        
+        if(node.getPai() == null){    
+            filhoesquerdo.setPai(null);
+            node.setFilhoequerda(filhoesquerdo.getFilhodireita());
+            if(filhoesquerdo.getFilhodireita() != null){
+                filhoesquerdo.getFilhodireita().setPai(node);
+            }
+            filhoesquerdo.setFilhodireita(node);
+            node.setPai(filhoesquerdo);
+            this.raiz = filhoesquerdo;
+        } 
         else{
-            filhoesquerdo.getPai().setFilhodireita(filhoesquerdo);
+            filhoesquerdo.setPai(node.getPai());
+            node.setFilhoequerda(filhoesquerdo.getFilhodireita());
+            node.setPai(filhoesquerdo);
+            filhoesquerdo.setFilhodireita(node);
+            if(soudireito(node)){
+                filhoesquerdo.getPai().setFilhodireita(filhoesquerdo);   
+            }
+            else{
+            filhoesquerdo.getPai().setFilhoequerda(filhoesquerdo);
+            }    
         }
-
-        node.setFilhoequerda(null);
-        node.setPai(filhoesquerdo);
-
         
     }
 
@@ -151,15 +162,26 @@ public class avl extends arverepesquisa {
         } 
         else{
             filhodireito.setPai(node.getPai());
-            node.setFilhodireita(null);
+            node.setFilhodireita(filhodireito.getFilhoequerda());
             node.setPai(filhodireito);
             filhodireito.setFilhoequerda(node);
-            filhodireito.getPai().setFilhodireita(filhodireito);
+            if(soudireito(node)){
+                filhodireito.getPai().setFilhodireita(filhodireito);
+            }
+            else{
+                filhodireito.getPai().setFilhoequerda(filhodireito);
+            }
 
         }
         
 
         
+    }
+
+    public void rdd(nodeavl node){
+        res((nodeavl) node.getFilhoequerda());
+        rds(node);
+
     }
 
     public void rde(nodeavl node){
@@ -175,7 +197,8 @@ public class avl extends arverepesquisa {
             rde(node);
         }
         else if(node.getFator() == 2 && filhoesquerdo.getFator() < 0){
-            //rotacao dupla esquerda
+            //rotacao dupla direita
+            rdd(node);
         }
         else if(node.getFator() == -2){
             //rotacao esquerda simples

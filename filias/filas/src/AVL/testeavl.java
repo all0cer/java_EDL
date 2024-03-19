@@ -3,19 +3,13 @@ package filas.src.AVL;
 
 public class testeavl {
     public static void main(String[] args) {
-            avl arvore = new avl(8);
+            avl arvore = new avl(50);
+            arvore.incluiravl(90);
+            arvore.incluiravl(20);
             arvore.incluiravl(10);
-            arvore.incluiravl(11);
-            arvore.incluiravl(12);
-            arvore.incluiravl(13);
+            arvore.incluiravl(40);
+            arvore.incluiravl(30);
             System.out.println(arvore.getRaiz().getElemento());
             System.out.println(arvore.getRaiz().getFilhodireita().getElemento());
             System.out.println(arvore.getRaiz().getFilhoequerda().getElemento());
-            // nodeavl noatual = arvore.getRaiz();
-            // for(int i=0; i<2; i++){
-            //     System.out.println(noatual.getFator());
-            //     noatual = (nodeavl) noatual.getFilhodireita();
-            // }
-
-    
     }}
