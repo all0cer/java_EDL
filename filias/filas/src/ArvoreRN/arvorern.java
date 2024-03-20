@@ -37,7 +37,24 @@ public class arvorern extends arverepesquisa {
         }
     }
 
+    public void caso2(no pai, no avo, no tio){
+        if(avo != raiz){
+            if(isExternal(tio) && avo.getPai().getCor() == 0){ //pinta o tio e o pai de negro, e o avo de rubro se o pai do avo for negro
+                tio.setCor(0);
+                pai.setCor(0);
+                avo.setCor(1);
+            }
+            else if(isExternal(tio) && avo.getPai().getCor() == 1){ // se o pai do avo é rubro, repete passando o avo
+                if(soudireito(tio)){ //checa se o tio passado é filho direito ou esquerdo para repetir o processo do lado certo
+                    caso2(pai.getPai(), avo.getPai(), avo.getPai().getFilhoequerda());
+                }
+                else{
+                    caso2(pai.getPai(), avo.getPai(), avo.getPai().getFilhodireita());
+                }
+            }
+        }
 
+    }
 
     @Override
     public no incluir(Object key) {
@@ -47,19 +64,20 @@ public class arvorern extends arverepesquisa {
             novo_no.setCor(1); //pinta nó de rubro para não alterar os negros da árvore
             return novo_no;
         }
-        else if(avo != null){ //CHECAR CASO 2
+        else if(avo != null){ //CHECAR CASO 2 SEM NÓ RAIZ E COM TIO DIFERENTE DE NULL
             if(novo_no.getPai().getCor() == 1 && avo.getCor() == 2){//Se o pai do novo nó é rubro e avô é negro
                 if(soudireito(novo_no.getPai())){//Se o pai for filho direito, checar cor do tio (esquerda ou direita) se é rubro
-                    if(avo.getFilhoequerda().getCor() == 1){ //se o tio for rubro
+                    if(avo.getFilhoequerda() != null || avo.getFilhoequerda().getCor() == 1){ //se o tio for rubro
                         //verificar casos nulos e com filhos
                         caso2(novo_no.getPai(), avo, avo.getFilhoequerda()); 
                     }
-                }
-                else{
-                    if(avo.getFilhodireita().getCor() == 1){
-                        caso2(novo_no.getPai(), avo, avo.getFilhodireita());
+                    else{
+                        if(avo.getFilhodireita() != null || avo.getFilhodireita().getCor() == 1){
+                            caso2(novo_no.getPai(), avo, avo.getFilhodireita());
+                        }
                     }
                 }
+                
             }
         }    
 
