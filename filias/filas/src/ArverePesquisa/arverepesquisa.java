@@ -286,6 +286,9 @@ public class arverepesquisa implements Iarverepesquisa {
     }
     
     public boolean isExternal(no node){
+         if (node == null) {
+            return false;  // ou true, dependendo da sua lógica — mas geralmente false
+        }
         return (node.getFilhodireita() == null && node.getFilhoequerda() == null);
     }
 

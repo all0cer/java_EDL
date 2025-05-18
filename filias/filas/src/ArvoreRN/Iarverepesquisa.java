@@ -5,25 +5,25 @@ public interface Iarverepesquisa {
 
 	comparadale getComparador();
 
-	no pesquisar(Object key,no node);
+	NoRN pesquisar(Object key,NoRN node);
 
-	no incluir(Object key);
+	NoRN incluir(Object key);
 
 	Object remover(Object key);
 
-	no getRaiz();
+	NoRN getRaiz();
 
-	void setRaiz(no p);
+	void setRaiz(NoRN p);
 
-	void emOrdem(no no);
+	void emOrdem(NoRN no);
 
-	void preOrdem(no no);
+	void preOrdem(NoRN no);
 
-	void posOrdem(no no);
+	void posOrdem(NoRN no);
 
-	int altura(no no);
+	int altura(NoRN no);
 
-	int profundidade(no no);
+	int profundidade(NoRN no);
 
 	void mostrar();
 

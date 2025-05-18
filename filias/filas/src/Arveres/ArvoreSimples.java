@@ -203,6 +203,8 @@ public class ArvoreSimples
 		{
 			return filhos.iterator();
 		}
+
+    
 	}
 	/* Fim da classe aninhada para armazenar o No */
 }

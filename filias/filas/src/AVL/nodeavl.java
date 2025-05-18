@@ -18,4 +18,22 @@ public class nodeavl extends no{
         this.fator = fator;
     }
 
+    public Object getElemento() {
+        return super.getElemento();   // reaproveita o método herdado
+    }
+
+    
+    public nodeavl getLeftChild() {
+        return (nodeavl) super.getFilhoequerda();
+    }
+
+    
+    public nodeavl getRightChild() {
+        return (nodeavl) super.getFilhodireita();
+    }
+
+     
+
+  
+
 }

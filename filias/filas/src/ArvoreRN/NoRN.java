@@ -1,13 +1,13 @@
 package filas.src.ArvoreRN;
 
-public class no {
+public class NoRN {
     private Object elemento;
-    private no pai;
-    private no filhoequerda;
-    private no filhodireita;
+    private NoRN pai;
+    private NoRN filhoequerda;
+    private NoRN filhodireita;
     private int cor; //1 = vermelho, 0 = negro
 
-    public no(no pai, Object element){
+    public NoRN(NoRN pai, Object element){
         this.pai = pai;
         this.cor = 1;
         this.elemento = element;
@@ -21,22 +21,22 @@ public class no {
     public void setElemento(Object elemento) {
         this.elemento = elemento;
     }
-    public no getPai() {
+    public NoRN getPai() {
         return pai;
     }
-    public void setPai(no pai) {
+    public void setPai(NoRN pai) {
         this.pai = pai;
     }
-    public no getFilhoequerda() {
+    public NoRN getFilhoequerda() {
         return filhoequerda;
     }
-    public void setFilhoequerda(no filhoequerda) {
+    public void setFilhoequerda(NoRN filhoequerda) {
         this.filhoequerda = filhoequerda;
     }
-    public no getFilhodireita() {
+    public NoRN getFilhodireita() {
         return filhodireita;
     }
-    public void setFilhodireita(no filhodireita) {
+    public void setFilhodireita(NoRN filhodireita) {
         this.filhodireita = filhodireita;
     }
 

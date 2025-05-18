@@ -9,10 +9,13 @@ public class testeavl {
             arvore.incluiravl(10);
             arvore.incluiravl(40);
             arvore.incluiravl(30);
+            
             arvore.removeravl(90);
-            // arvore.removeravl(50);
+            arvore.removeravl(50);
             // arvore.removeravl(10);
-            arvore.removeravl(20);
+            //arvore.removeravl(20);
             // arvore.removeravl(30);
-            arvore.emOrdemavl(arvore.getRaiz());
+            arvore.mostrar();
+
+            
     }}

@@ -4,12 +4,12 @@ import java.util.Stack;
 
 
 public class arverepesquisa implements Iarverepesquisa {
-    no raiz;
+    NoRN raiz;
     int tamanho;
     comparadale compara = new comparadale();
 
     public arverepesquisa(Object elemento){
-        raiz = new no(null, elemento);
+        raiz = new NoRN(null, elemento);
         tamanho = 1;
     }
 
@@ -20,7 +20,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public no pesquisar(Object key, no node) {
+    public NoRN pesquisar(Object key, NoRN node) {
 
         if (node == null){
             return null;
@@ -40,9 +40,9 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public no incluir(Object key) {
-        no no_atual = getRaiz();
-        no novoNo = new no(null, key);
+    public NoRN incluir(Object key) {
+        NoRN no_atual = getRaiz();
+        NoRN novoNo = new NoRN(null, key);
         while (true) {
             int resultado = compara.compare(novoNo.getElemento(), no_atual.getElemento());
 
@@ -77,7 +77,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
     @Override
     public Object remover(Object key) {
-        no noexcluir = pesquisar(key, raiz);
+        NoRN noexcluir = pesquisar(key, raiz);
         if (isExternal(noexcluir)){ //CASO DE NÓ SEM FILHOS
             if(parent(noexcluir).getFilhoequerda() == noexcluir){
                 parent(noexcluir).setFilhoequerda(null);
@@ -89,13 +89,13 @@ public class arverepesquisa implements Iarverepesquisa {
             }
         }
         else if (noexcluir.getFilhodireita() != null && noexcluir.getFilhoequerda() != null){
-                no substitui = sucessor(filhodadireita(noexcluir));
+                NoRN substitui = sucessor(filhodadireita(noexcluir));
                 noexcluir.setElemento(substitui.getElemento());
                 remover(sucessor(substitui));
                 return noexcluir.getElemento();
         }
         else{
-            no filho = (noexcluir.getFilhoequerda() != null) ? noexcluir.getFilhoequerda(): noexcluir.getFilhodireita(); 
+            NoRN filho = (noexcluir.getFilhoequerda() != null) ? noexcluir.getFilhoequerda(): noexcluir.getFilhodireita(); 
             filho.setPai(parent(noexcluir)); //VOU SER CRIADO POR VÓ
             if(parent(noexcluir).getFilhoequerda() == noexcluir){
                 parent(noexcluir).setFilhoequerda(filho);
@@ -110,7 +110,7 @@ public class arverepesquisa implements Iarverepesquisa {
     
     }
 
-    private no sucessor(no node){
+    private NoRN sucessor(NoRN node){
         while (node.getFilhoequerda() != null) {
             node = node.getFilhoequerda();
         }
@@ -118,17 +118,17 @@ public class arverepesquisa implements Iarverepesquisa {
     }
     
     @Override
-    public no getRaiz() {
+    public NoRN getRaiz() {
         return raiz;
     }
 
     @Override
-    public void setRaiz(no p) {
+    public void setRaiz(NoRN p) {
         
     }
 
     @Override
-    public void emOrdem(no node) {
+    public void emOrdem(NoRN node) {
         if (node == null) {
              System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
              return;
@@ -146,7 +146,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public void preOrdem(no node) {
+    public void preOrdem(NoRN node) {
         if (node == null) {
              System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
              return;
@@ -160,7 +160,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public void posOrdem(no node) {
+    public void posOrdem(NoRN node) {
         if (node == null) {
              System.out.print("null"); // Se o nó for nulo, retorna sem fazer mais nada
              return;
@@ -173,7 +173,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public int altura(no node) {
+    public int altura(NoRN node) {
         if(isExternal(node)){
             return 0;
         }
@@ -186,7 +186,7 @@ public class arverepesquisa implements Iarverepesquisa {
     }
 
     @Override
-    public int profundidade(no node) {
+    public int profundidade(NoRN node) {
         if(node == raiz){
             return 0;
         }
@@ -203,8 +203,8 @@ public class arverepesquisa implements Iarverepesquisa {
     @Override
     public Iterator nos() {
         return new Iterator<Object>() {
-        private no currentNode = raiz;
-        private Stack<no> pilha = new Stack<>();
+        private NoRN currentNode = raiz;
+        private Stack<NoRN> pilha = new Stack<>();
 
         @Override
         public boolean hasNext() {
@@ -218,7 +218,7 @@ public class arverepesquisa implements Iarverepesquisa {
                 currentNode = filhodaesquerda(currentNode);
             }
 
-            no node = pilha.pop();
+            NoRN node = pilha.pop();
             currentNode = filhodadireita(currentNode);
 
             return node;
@@ -229,8 +229,8 @@ public class arverepesquisa implements Iarverepesquisa {
     @Override
     public Iterator elements() {
        return new Iterator<Object>() {
-        private no currentNode = raiz;
-        private Stack<no> pilha = new Stack<>();
+        private NoRN currentNode = raiz;
+        private Stack<NoRN> pilha = new Stack<>();
 
         @Override
         public boolean hasNext() {
@@ -244,7 +244,7 @@ public class arverepesquisa implements Iarverepesquisa {
                 currentNode = filhodaesquerda(currentNode);
             }
 
-            no node = pilha.pop();
+            NoRN node = pilha.pop();
             currentNode = filhodadireita(currentNode);
 
             return node.getElemento();
@@ -264,31 +264,31 @@ public class arverepesquisa implements Iarverepesquisa {
 
     // #### adicionais #####
 
-    public no parent(no node){
+    public NoRN parent(NoRN node){
         return node.getPai();
     }
 
-    public no filhodaesquerda(no node){
+    public NoRN filhodaesquerda(NoRN node){
         return node.getFilhoequerda();
     }
 
-    public no filhodadireita(no node){
+    public NoRN filhodadireita(NoRN node){
         return node.getFilhodireita();
     }
 
-    public no temesquerdo(no node){
+    public NoRN temesquerdo(NoRN node){
         return node.getFilhoequerda();
     }
 
-    public no temdireito(no node){
+    public NoRN temdireito(NoRN node){
         return node.getFilhodireita();
     }
     
-    public boolean isExternal(no node){
+    public boolean isExternal(NoRN node){
         return (node.getFilhodireita() == null && node.getFilhoequerda() == null);
     }
 
-    public boolean isInternal(no node){
+    public boolean isInternal(NoRN node){
         return (node.getFilhodireita() != null || node.getFilhoequerda() != null);
     }
 

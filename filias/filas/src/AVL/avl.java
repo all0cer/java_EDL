@@ -2,6 +2,7 @@ package filas.src.AVL;
 
 import filas.src.ArverePesquisa.arverepesquisa;
 import filas.src.ArverePesquisa.no;
+import filas.src.Arveres.ArvoreSimples.No;
 import filas.src.ArvoreComFHeap.node;
 import filas.src.ArverePesquisa.comparadale;
 import java.math.*;
@@ -354,7 +355,7 @@ public class avl extends arverepesquisa {
     }
 
     public int alturaavl(nodeavl node) {
-        if(isExternal(node)){
+        if(isExternal(node) || node == null){
             return 0;
         }
         else{
@@ -397,20 +398,53 @@ public class avl extends arverepesquisa {
         return this.tamanho;
     }
 
-    public void mostraravl() {
-        mostraravl(raiz, "");
-    }
-    
-    private void mostraravl(nodeavl node, String espaco) {
-        if (node == null) {
+    public void preencheTabela(nodeavl no, Object[][] tabela, int linha, int coluna) {
+        if (no == null)
             return;
+
+        tabela[linha][coluna] = no;
+
+        int offset = (int) Math.pow(2, tabela.length - linha - 2);
+
+        if (no.getLeftChild() != null) {
+            preencheTabela(no.getLeftChild(), tabela, linha + 1, coluna - offset);
         }
-        System.out.println(espaco + node.getElemento());
-    
-        if (node.getFilhoequerda() != null || node.getFilhodireita() != null) {
-            mostraravl((nodeavl) node.getFilhoequerda(), espaco + "    ");
-            mostraravl((nodeavl) node.getFilhodireita(), espaco + "    ");
+
+        if (no.getRightChild() != null) {
+            preencheTabela(no.getRightChild(), tabela, linha + 1, coluna + offset);
         }
     }
+
+
+    public void mostrar() {
+        int h = alturaavl(raiz);
+        int nLinhas = h + 1;
+        double nColunas = Math.pow(2, h + 1);
+
+        Object[][] tabela = new Object[nLinhas][(int) nColunas];
+        preencheTabela(raiz, tabela, 0, (int) nColunas / 2);
+
+        for (int i = 0; i < nLinhas; i++) {
+            for (int j = 0; j < (int) nColunas; j++) {
+                if (tabela[i][j] == null)
+                    System.out.print("   ");
+                else {
+                    nodeavl no = (nodeavl) tabela[i][j];
+                    Object key =  no.getElemento();
+                    if(key == null){
+                        System.out.printf("null");
+                    }
+                    else{System.out.printf("%s[%d]", key, no.getFator());}
+                    
+                    // System.out.printf("%s", key);
+
+                    // System.out.printf("%3d[%d]", no.getKey(), no.getFb());
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    
 }
 
