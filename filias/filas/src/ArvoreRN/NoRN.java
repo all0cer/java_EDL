@@ -28,12 +28,18 @@ public class NoRN {
         this.pai = pai;
     }
     public NoRN getFilhoequerda() {
+        if(filhoequerda == null){
+            return null;
+        }
         return filhoequerda;
     }
     public void setFilhoequerda(NoRN filhoequerda) {
         this.filhoequerda = filhoequerda;
     }
     public NoRN getFilhodireita() {
+        if(filhodireita == null){
+            return null;
+        }
         return filhodireita;
     }
     public void setFilhodireita(NoRN filhodireita) {
