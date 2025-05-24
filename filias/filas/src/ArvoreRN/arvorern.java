@@ -68,10 +68,14 @@ public class arvorern extends arverepesquisa {
             }else if(avo.getFilhoequerda() == tio && pai.getFilhodireita() == noParaInserir){ //CASO 3b
                 res(avo); 
             }
-            else if(avo.getFilhoequerda() == tio && pai.getFilhoequerda() == noParaInserir ){
+            else if(avo.getFilhoequerda() == tio && pai.getFilhoequerda() == noParaInserir ){//CASO 3c
                 rds(avo.getFilhodireita());
                 res(avo);
-            } //CASO 3c
+            } 
+            else if(avo.getFilhodireita() == tio && pai.getFilhodireita() == noParaInserir){ //CASO 3d
+                res(avo.getFilhoequerda());
+                rds(avo);
+            }
         }
        
     }
@@ -97,14 +101,14 @@ public class arvorern extends arverepesquisa {
             a.getFilhodireita().setPai(b);
         }
 
-        
+        b.setFilhoequerda(a.getFilhodireita());
         a.setPai(b.getPai());
         a.setFilhodireita(b);
         (b.getPai()).setFilhodireita(a);
         b.setPai(a);
+       
         
-        System.out.println(b.getPai().getElemento());
-        System.out.println(b.getPai().getFilhodireita().getElemento());
+       
         // Recoloração
         a.setCor(0);  // pai vira preto
         b.setCor(1);  // avo vira vermelho
@@ -113,8 +117,7 @@ public class arvorern extends arverepesquisa {
 
     public void res(NoRN b) {
         NoRN a = b.getFilhodireita();
-        System.out.println(a.getElemento());
-        System.out.println(b.getElemento());
+      
         // Rotação à esquerda
         if (b == this.raiz) {
             b.setFilhodireita(a.getFilhoequerda());
@@ -143,8 +146,10 @@ public class arvorern extends arverepesquisa {
             }
         }
 
+        b.setFilhodireita(a.getFilhoequerda());
         a.setFilhoequerda(b);
         b.setPai(a);
+
 
         // Recoloração
         a.setCor(0);

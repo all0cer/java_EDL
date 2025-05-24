@@ -24,10 +24,14 @@ public class testeRN {
         // arvore.inserir(39);
         // arvore.inserir(42);
         // arvore.inserir(38);
- //TESTA ROTACAO DUPLA
-        arvore.inserir(60);
-        arvore.inserir(55);
 
+       //TESTA CASO 3c
+        // arvore.inserir(60);
+        // arvore.inserir(55);
+
+        //TESTA CASO 3d
+        arvore.inserir(45);
+        arvore.inserir(48);
         arvore.mostrar();
         System.out.println("Quantidade nós negros:" + arvore.contarNosPretosRecursivo(arvore.getRaiz()));
         System.out.println("É rubro negra? " + arvore.isRubroNegra(arvore.getRaiz()));
