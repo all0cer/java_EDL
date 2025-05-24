@@ -17,10 +17,20 @@ public class testeRN {
         // arvore.inserir(40); //TESTE CASO 3a 
         // arvore.inserir(30);
 
+        // arvore.inserir(60);
+        // arvore.inserir(70);
+        // arvore.inserir(40);
+        // arvore.inserir(51);
+        // arvore.inserir(39);
+        // arvore.inserir(42);
+        // arvore.inserir(38);
+ //TESTA ROTACAO DUPLA
         arvore.inserir(60);
-        arvore.inserir(70);
-        arvore.inserir(40);
+        arvore.inserir(55);
+
         arvore.mostrar();
+        System.out.println("Quantidade nós negros:" + arvore.contarNosPretosRecursivo(arvore.getRaiz()));
+        System.out.println("É rubro negra? " + arvore.isRubroNegra(arvore.getRaiz()));
         // agora você pode usar os métodos da arvore
         // por exemplo, arvore.algumMetodo();
     }

@@ -24,6 +24,8 @@ public class arvorern extends arverepesquisa {
 
     }
     
+    
+
     public void verificarInserir(NoRN noParaInserir){
         NoRN pai = noParaInserir.getPai();
         NoRN tio, avo = null;
@@ -34,98 +36,118 @@ public class arvorern extends arverepesquisa {
         if(pai.getCor() == 0){ //CASO 1, SE O PAI DO NÓ A SER INSERIDO FOR NEGRO, NADA PRECISA SER FEITO
             return;
         }
-        if(pai.getCor() == 1 && pai.getPai().getCor() == 0){ //CASO 2
-            if(avo.getFilhodireita() == pai){
-                tio = avo.getFilhoequerda();
-            }else{
-                tio = avo.getFilhodireita();
-            } 
+
+        else if(pai.getCor() == 1 && pai.getPai().getCor() == 0){ //CASO 2
+
+            tio = pegaTio(pai, avo); 
+
             if(tio != null && tio.getCor() == 1 ){
                 recolorir(tio, pai, avo); //FIM CASO 2
             } else{
-                verificarRotacoes(noParaInserir, pai, tio, avo);
+                verificarRotacoes(noParaInserir, pai, tio, avo); //CASO 3
             }
 
         }
+    }
+
+
+    private NoRN pegaTio(NoRN pai, NoRN avo) {
+        NoRN tio;
+        if(avo.getFilhodireita() == pai){
+            tio = avo.getFilhoequerda();
+        }else{
+            tio = avo.getFilhodireita();
+        }
+        return tio;
     }
 
     public void verificarRotacoes(NoRN noParaInserir, NoRN pai, NoRN tio, NoRN avo){
         if((tio == null  || tio.getCor() == 0) && avo.getCor() == 0 && pai.getCor() == 1){
-            if(avo.getFilhodireita() == tio){
+            if(avo.getFilhodireita() == tio && pai.getFilhoequerda() == noParaInserir){ //CASO 3a
                 rds(avo);
-            }else{
-                res(avo);
+            }else if(avo.getFilhoequerda() == tio && pai.getFilhodireita() == noParaInserir){ //CASO 3b
+                res(avo); 
             }
-            
+            else if(avo.getFilhoequerda() == tio && pai.getFilhoequerda() == noParaInserir ){
+                rds(avo.getFilhodireita());
+                res(avo);
+            } //CASO 3c
         }
+       
     }
 
 
-    public void rds(NoRN avo){
-        NoRN pai = avo.getFilhoequerda();
-
+    public void rds(NoRN b){
+        NoRN a = b.getFilhoequerda();
+        
     // Rotação à direita
-        if(avo == raiz){
-            avo.setFilhoequerda(pai.getFilhodireita());
-            if (pai.getFilhodireita() != null) {
-                pai.getFilhodireita().setPai(avo);
+        if(b == this.raiz){
+            b.setFilhoequerda(a.getFilhodireita());
+            if (a.getFilhodireita() != null) {
+                a.getFilhodireita().setPai(b);
             }
-            pai.setFilhodireita(avo);
-            pai.setCor(0);
-            avo.setCor(1);
-            raiz = pai;
+            a.setFilhodireita(b);
+            a.setCor(0);
+            b.setCor(1);
+            this.raiz = a;
             return;
         }
 
-        if (pai.getFilhodireita() != null) {
-            pai.getFilhodireita().setPai(avo);
+        if (a.getFilhodireita() != null) {
+            a.getFilhodireita().setPai(b);
         }
 
-        pai.setPai(avo.getPai());
-        pai.setFilhodireita(avo);
-        avo.setPai(pai);
+        
+        a.setPai(b.getPai());
+        a.setFilhodireita(b);
+        (b.getPai()).setFilhodireita(a);
+        b.setPai(a);
+        
+        System.out.println(b.getPai().getElemento());
+        System.out.println(b.getPai().getFilhodireita().getElemento());
+        // Recoloração
+        a.setCor(0);  // pai vira preto
+        b.setCor(1);  // avo vira vermelho
+        mostrar();
+    }
+
+    public void res(NoRN b) {
+        NoRN a = b.getFilhodireita();
+        System.out.println(a.getElemento());
+        System.out.println(b.getElemento());
+        // Rotação à esquerda
+        if (b == this.raiz) {
+            b.setFilhodireita(a.getFilhoequerda());
+            if (a.getFilhoequerda() != null) {
+                a.getFilhoequerda().setPai(b);
+            }
+            a.setFilhoequerda(b);
+            b.setPai(a);
+            a.setCor(0);
+            b.setCor(1);
+            this.raiz = a;
+            return;
+        }
+
+        if (a.getFilhoequerda() != null) {
+            a.getFilhoequerda().setPai(b);
+        }
+
+        a.setPai(b.getPai());
+
+        if (b.getPai() != null) {
+            if (b.getPai().getFilhoequerda() == b) {
+                b.getPai().setFilhoequerda(a);
+            } else {
+                b.getPai().setFilhodireita(a);
+            }
+        }
+
+        a.setFilhoequerda(b);
+        b.setPai(a);
 
         // Recoloração
-        pai.setCor(0);  // pai vira preto
-        avo.setCor(1);  // avo vira vermelho
-    }
-
-    public void res(NoRN avo) {
-    NoRN pai = avo.getFilhodireita();
-
-    // Rotação à esquerda
-    if (avo == raiz) {
-        avo.setFilhodireita(pai.getFilhoequerda());
-        if (pai.getFilhoequerda() != null) {
-            pai.getFilhoequerda().setPai(avo);
-        }
-        pai.setFilhoequerda(avo);
-        avo.setPai(pai);
-        pai.setCor(0);
-        avo.setCor(1);
-        raiz = pai;
-        return;
-    }
-
-    if (pai.getFilhoequerda() != null) {
-        pai.getFilhoequerda().setPai(avo);
-    }
-
-    pai.setPai(avo.getPai());
-
-    if (avo.getPai() != null) {
-        if (avo.getPai().getFilhoequerda() == avo) {
-            avo.getPai().setFilhoequerda(pai);
-        } else {
-            avo.getPai().setFilhodireita(pai);
-        }
-    }
-
-    pai.setFilhoequerda(avo);
-    avo.setPai(pai);
-
-    // Recoloração
-    pai.setCor(0);
+        a.setCor(0);
     }
 
     public void recolorir(NoRN tio, NoRN pai, NoRN avo){
@@ -169,13 +191,62 @@ public class arvorern extends arverepesquisa {
         }
     }
 
+    public int contarNosPretosRecursivo(NoRN no) {
+        if (no == null) {
+            return 0; // Caso base: nó nulo não conta
+        }
+
+        int contador = 0;
+        if (no.getCor() == 0) { // 0 representa a cor PRETA
+            contador = 1;
+        }
+
+        // Soma recursivamente os nós pretos das subárvores esquerda e direita
+        contador += contarNosPretosRecursivo(no.getFilhoequerda());
+        contador += contarNosPretosRecursivo(no.getFilhodireita());
+
+        return contador;
+    }
+
+
+    public boolean isRubroNegra(NoRN no){
+        int is =  checkIsRubroNegra(no);
+        return (is != -1);
+    }
+
+    private int checkIsRubroNegra(NoRN no) {
+        if (no == null) {
+            return 0; // Caso base: nó nulo não conta
+        }
+
+
+        int qtdNegroEsquerda = checkIsRubroNegra(no.getFilhoequerda());
+        if(qtdNegroEsquerda == -1){
+            return -1;
+        }
+
+        int qtdNegroDireita = checkIsRubroNegra(no.getFilhodireita());
+        if(qtdNegroDireita == -1){
+            return -1;
+        }
+
+        if(qtdNegroEsquerda != qtdNegroDireita){
+            return -1;
+        }
+
+        
+        return qtdNegroEsquerda + (no.getCor() == 0 ? 1 : 0);
+    }
+
+
+
     public void mostrar() {
-        int h = alturaRN(raiz);
+        int h = alturaRN(this.raiz);
         int nLinhas = h + 1;
         double nColunas = Math.pow(2, h + 1);
 
         Object[][] tabela = new Object[nLinhas][(int) nColunas];
-        preencheTabela(raiz, tabela, 0, (int) nColunas / 2);
+        preencheTabela(this.raiz, tabela, 0, (int) nColunas / 2);
 
         for (int i = 0; i < nLinhas; i++) {
             for (int j = 0; j < (int) nColunas; j++) {
