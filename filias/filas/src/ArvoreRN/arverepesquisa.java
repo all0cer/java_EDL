@@ -91,7 +91,13 @@ public class arverepesquisa implements Iarverepesquisa {
         else if (noexcluir.getFilhodireita() != null && noexcluir.getFilhoequerda() != null){
                 NoRN substitui = sucessor(filhodadireita(noexcluir));
                 noexcluir.setElemento(substitui.getElemento());
-                remover(sucessor(substitui));
+                System.out.println(sucessor(substitui).getElemento());
+                if(substitui.getPai().getFilhodireita() == substitui){
+                    substitui.getPai().setFilhodireita(null);
+                }else{
+                    substitui.getPai().setFilhoequerda(null);
+                }
+                
                 return noexcluir.getElemento();
         }
         else{

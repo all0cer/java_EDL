@@ -1,6 +1,7 @@
 package filas.src.ArvoreRN;
 
 import filas.src.AVL.nodeavl;
+import filas.src.Sequencia.sequencia;
 
 public class arvorern extends arverepesquisa {
     public arvorern(Object elemento){
@@ -84,6 +85,8 @@ public class arvorern extends arverepesquisa {
     public void rds(NoRN b){
         NoRN a = b.getFilhoequerda();
         
+        System.out.println("deve ser 48: " + b.getFilhoequerda().getElemento());
+        System.out.println("deve ser 50: " + a.getPai().getElemento());
     // Rotação à direita
         if(b == this.raiz){
             b.setFilhoequerda(a.getFilhodireita());
@@ -91,8 +94,10 @@ public class arvorern extends arverepesquisa {
                 a.getFilhodireita().setPai(b);
             }
             a.setFilhodireita(b);
+            b.setPai(a);
             a.setCor(0);
             b.setCor(1);
+            a.setPai(null);
             this.raiz = a;
             return;
         }
@@ -101,10 +106,15 @@ public class arvorern extends arverepesquisa {
             a.getFilhodireita().setPai(b);
         }
 
-        b.setFilhoequerda(a.getFilhodireita());
+        b.setFilhodireita(a.getFilhoequerda());
         a.setPai(b.getPai());
         a.setFilhodireita(b);
-        (b.getPai()).setFilhodireita(a);
+        if(b.getPai().getFilhoequerda() == b){
+            b.getPai().setFilhoequerda(a);
+        }else{
+            (b.getPai()).setFilhodireita(a);
+        }
+        
         b.setPai(a);
        
         
@@ -117,7 +127,7 @@ public class arvorern extends arverepesquisa {
 
     public void res(NoRN b) {
         NoRN a = b.getFilhodireita();
-      
+        
         // Rotação à esquerda
         if (b == this.raiz) {
             b.setFilhodireita(a.getFilhoequerda());
@@ -153,6 +163,8 @@ public class arvorern extends arverepesquisa {
 
         // Recoloração
         a.setCor(0);
+
+        mostrar();
     }
 
     public void recolorir(NoRN tio, NoRN pai, NoRN avo){
@@ -165,6 +177,70 @@ public class arvorern extends arverepesquisa {
         if(avo != raiz && avo.getPai().getCor() != 0){
             verificarInserir(avo);
         }
+    }
+
+    
+    public void removerrb(Object elemento){
+        NoRN noParaRemover = pesquisar(elemento, raiz);
+        NoRN sucessor;
+        System.out.println(noParaRemover.getPai().getElemento());
+
+        if(noParaRemover.getFilhodireita() == null){
+            sucessor = noParaRemover.getFilhoequerda();
+        }else{
+            sucessor = encontraSucessor(noParaRemover);
+        }
+
+        if(isExternal(noParaRemover)){
+            if(noParaRemover.getCor() == 1){
+                remover(noParaRemover);
+            } else{
+                System.out.println("aqui é para ser pai de 50: " + noParaRemover.getPai().getElemento());
+                remover(noParaRemover.getElemento());
+                verificarRemocao();
+            }
+        }
+
+        else if(noParaRemover.getCor() == 1 && sucessor.getCor() == 1){ //SITUAÇÃO 1
+            remover(noParaRemover.getElemento());
+        }
+        
+        else if(noParaRemover.getCor() == 0 && sucessor.getCor() == 1){//SITUAÇÃO 2
+            sucessor.setCor(0);
+            remover(noParaRemover.getElemento());
+            
+        }
+
+        else if(noParaRemover.getCor() == 1 && sucessor.getCor() == 0){ // SITUAÇÃO 4
+            sucessor.setCor(1);
+
+            remover(noParaRemover.getElemento());
+        }
+
+        else if(noParaRemover.getCor() == 0 && sucessor.getCor() == 0){ //SITUAÇÃO 3
+            remover(noParaRemover.getElemento());
+            System.out.println(sucessor.getElemento());
+            verificarRemocao(sucessor);
+        }
+
+
+        if(noParaRemover == raiz){
+                this.raiz = sucessor;
+        }
+    }
+
+    private void verificarRemocao(NoRN sucessor) {
+        if(noParaRemover.getPai().getCor() == 0 && )
+       
+    }
+
+
+    public NoRN encontraSucessor(NoRN no){
+        NoRN atual = no.getFilhodireita();
+        while(atual.getFilhoequerda() != null){
+            atual = atual.getFilhoequerda();
+        }
+        return atual;
     }
 
     public void preencheTabela(NoRN no, Object[][] tabela, int linha, int coluna) {

@@ -32,6 +32,12 @@ public class testeRN {
         //TESTA CASO 3d
         arvore.inserir(45);
         arvore.inserir(48);
+        arvore.inserir(44);
+        arvore.inserir(46);
+        arvore.inserir(43);
+        arvore.removerrb(44);
+        arvore.removerrb(45);
+        arvore.removerrb(50);
         arvore.mostrar();
         System.out.println("Quantidade nós negros:" + arvore.contarNosPretosRecursivo(arvore.getRaiz()));
         System.out.println("É rubro negra? " + arvore.isRubroNegra(arvore.getRaiz()));
