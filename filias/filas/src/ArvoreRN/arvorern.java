@@ -85,8 +85,8 @@ public class arvorern extends arverepesquisa {
     public void rds(NoRN b){
         NoRN a = b.getFilhoequerda();
         
-        System.out.println("deve ser 48: " + b.getFilhoequerda().getElemento());
-        System.out.println("deve ser 50: " + a.getPai().getElemento());
+        // System.out.println("deve ser 48: " + b.getFilhoequerda().getElemento());
+        // System.out.println("deve ser 50: " + a.getPai().getElemento());
     // Rotação à direita
         if(b == this.raiz){
             b.setFilhoequerda(a.getFilhodireita());
@@ -122,7 +122,7 @@ public class arvorern extends arverepesquisa {
         // Recoloração
         a.setCor(0);  // pai vira preto
         b.setCor(1);  // avo vira vermelho
-        mostrar();
+        // mostrar();
     }
 
     public void res(NoRN b) {
@@ -164,10 +164,12 @@ public class arvorern extends arverepesquisa {
         // Recoloração
         a.setCor(0);
 
-        mostrar();
+        // mostrar();
     }
 
     public void recolorir(NoRN tio, NoRN pai, NoRN avo){
+        mostrar();
+        System.out.println("DEVE SER FALSE: " + isRubroNegra(raiz));
         tio.setCor(0);
         pai.setCor(0);
         if(avo != raiz){
@@ -183,7 +185,7 @@ public class arvorern extends arverepesquisa {
     public void removerrb(Object elemento){
         NoRN noParaRemover = pesquisar(elemento, raiz);
         NoRN sucessor;
-        System.out.println(noParaRemover.getPai().getElemento());
+        // System.out.println(noParaRemover.getPai().getElemento());
 
         if(noParaRemover.getFilhodireita() == null){
             sucessor = noParaRemover.getFilhoequerda();
@@ -195,9 +197,9 @@ public class arvorern extends arverepesquisa {
             if(noParaRemover.getCor() == 1){
                 remover(noParaRemover);
             } else{
-                System.out.println("aqui é para ser pai de 50: " + noParaRemover.getPai().getElemento());
+                // System.out.println("aqui é para ser pai de 50: " + noParaRemover.getPai().getElemento());
                 remover(noParaRemover.getElemento());
-                verificarRemocao();
+                verificarRemocao(sucessor);
             }
         }
 
@@ -219,7 +221,7 @@ public class arvorern extends arverepesquisa {
 
         else if(noParaRemover.getCor() == 0 && sucessor.getCor() == 0){ //SITUAÇÃO 3
             remover(noParaRemover.getElemento());
-            System.out.println(sucessor.getElemento());
+            // System.out.println(sucessor.getElemento());
             verificarRemocao(sucessor);
         }
 
@@ -230,7 +232,9 @@ public class arvorern extends arverepesquisa {
     }
 
     private void verificarRemocao(NoRN sucessor) {
-        if(noParaRemover.getPai().getCor() == 0 && )
+        if(sucessor.getPai().getCor() == 0  ){
+            return;
+        }
        
     }
 
@@ -291,15 +295,22 @@ public class arvorern extends arverepesquisa {
 
 
     public boolean isRubroNegra(NoRN no){
-        int is =  checkIsRubroNegra(no);
-        return (is != -1);
+        if(raiz.getCor() != 0){
+            return false;
+        }
+        else if(checkIsRubroNegra(raiz) == -1){
+            return false;
+        }
+        return true;
+        
     }
 
+    
     private int checkIsRubroNegra(NoRN no) {
         if (no == null) {
             return 0; // Caso base: nó nulo não conta
         }
-
+        
 
         int qtdNegroEsquerda = checkIsRubroNegra(no.getFilhoequerda());
         if(qtdNegroEsquerda == -1){
@@ -313,6 +324,13 @@ public class arvorern extends arverepesquisa {
 
         if(qtdNegroEsquerda != qtdNegroDireita){
             return -1;
+        }
+
+        if (no.getCor() == 1) {
+            if ((no.getFilhodireita() != null && no.getFilhodireita().getCor() == 1) ||
+                (no.getFilhoequerda() != null && no.getFilhoequerda().getCor() == 1)) {
+                return -1; 
+            }
         }
 
         
