@@ -26,7 +26,7 @@ public class teste {
 
         AEstrela aEstrela = new AEstrela(labirinto);
         Instant inicioAestrela = Instant.now();
-        int custoMinimoEstrela = aEstrela.encontrarCaminho();
+        int custoMinimoEstrela = aEstrela.encontrarMenorCustoGeral();
         Instant fimAestrela = Instant.now();
 
         Duration duracaoAestrela = Duration.between(inicioAestrela, fimAestrela);
