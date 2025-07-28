@@ -5,11 +5,13 @@ public class Aresta {
     private Object valor_aresta;
     private Vertice vertice_inicio;
     private Vertice vertice_destino;
+    private boolean direcionada;
     
     public Aresta(Vertice inicio, Vertice fim, Object valor){
         this.valor_aresta = valor;
         this.vertice_inicio = inicio;
         this.vertice_destino = fim;
+        this.direcionada = false;
     }
     
     public Vertice getVertice_destino() {
@@ -36,4 +38,26 @@ public class Aresta {
         this.valor_aresta = valor_aresta;
     }
 
+    public boolean eDirecionada(){
+        return direcionada;
+    }
+
+    public void setDirecionada(){
+        this.direcionada = true;
+    }
+
+    @Override
+    public String toString() {
+        
+        String inicioStr = (this.vertice_inicio != null) ? this.vertice_inicio.toString() : "N/A";
+        String fimStr = (this.vertice_destino != null) ? this.vertice_destino.toString() : "N/A";
+        String valorStr = (this.valor_aresta != null) ? this.valor_aresta.toString() : "";
+
+        if (this.direcionada) {
+            
+            return String.format("%s --(%s)--> %s", inicioStr, valorStr, fimStr);
+        } else {
+            return String.format("%s --(%s)-- %s", inicioStr, valorStr, fimStr);
+        }
+    }
 }
