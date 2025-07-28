@@ -138,6 +138,9 @@ public class Grafo {
         return todasAsArestas;
     }
 
+    public int grau(Vertice v) {   
+        return v.getVerticesAdjacentes().size(); //PERGUNTAR SOBRE O GRAFO DIRECIONADO
+    }
     //public ArrayList<Vertice> arestasIncidentes(Vertice v){
         //PERGUNTAR COMO FAZER JÁ QUE AS ARESTAS NÃO SÃO ARMAZENADAS
     //}
