@@ -1,7 +1,9 @@
 package filas.src.ListaDeAdjacencia;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -177,7 +179,7 @@ public class Grafo {
 
             v.setMarcado(-1);
             v.setd(0);
-            Queue<Vertice> fila = new PriorityQueue<>();
+            Queue<Vertice> fila = new ArrayDeque<>();
             fila.add(v);
             while (!fila.isEmpty()){
                     Vertice vertice = fila.poll();
