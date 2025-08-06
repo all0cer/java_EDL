@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class Vertice {
     private Object valor_vertice;
     private ArrayList<Vertice> verticesAdjacentes;
-    
-
+    private int d;
+    private int s;
+    private int marcado;
 
     public Vertice(Object valor){
         this.valor_vertice = valor;
@@ -37,6 +38,30 @@ public class Vertice {
     public ArrayList<Vertice> getVerticesAdjacentes(){
         return verticesAdjacentes;
     }
+
+    public int getd(){
+        return this.d;
+    }
+
+    public int gets(){
+        return this.s;
+    }
+
+    public void setd(int valor){
+        this.d = valor;
+    }
+
+    public void sets(int valor){
+        this.s = valor;
+    }
+
+    public int getMarcado(){
+        return this.marcado;
+    }
+
+    public void setMarcado(int valor){
+        this.marcado = valor;
+    }   
 
     
     

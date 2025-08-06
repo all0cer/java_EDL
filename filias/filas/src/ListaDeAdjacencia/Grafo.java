@@ -2,6 +2,8 @@ package filas.src.ListaDeAdjacencia;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public class Grafo {
@@ -141,6 +143,55 @@ public class Grafo {
     public int grau(Vertice v) {   
         return v.getVerticesAdjacentes().size(); //PERGUNTAR SOBRE O GRAFO DIRECIONADO
     }
+
+    public void AlgoritmoDFS(){
+        for(Vertice vertice: vertices){
+            vertice.setMarcado(0);
+        }
+        int t = 0;
+
+        for(Vertice vertice: vertices){
+            if(vertice.getMarcado() == 0){
+                DFS(vertice, t);
+            }
+        }
+
+    }
+
+    private void DFS(Vertice vertice, int t){   
+        vertice.setMarcado(-1);
+        vertice.setd(++t);
+        for(Vertice vizinho: vertice.getVerticesAdjacentes()){   
+            if(vizinho.getMarcado() == 0){
+                DFS(vizinho, t);
+            }
+        }
+        vertice.setMarcado(1);
+        vertice.sets(++t);
+    }
+
+    public void AlgoritmoBFS(Vertice v){
+            for(Vertice vertice: vertices){
+                vertice.setMarcado(0);
+            }
+
+            v.setMarcado(-1);
+            v.setd(0);
+            Queue<Vertice> fila = new PriorityQueue<>();
+            fila.add(v);
+            while (!fila.isEmpty()){
+                    Vertice vertice = fila.poll();
+                    for(Vertice vizinho: vertice.getVerticesAdjacentes()){
+                        if(vizinho.getMarcado() == 0){
+                            vizinho.setd(vertice.getd()+1);
+                            vizinho.setMarcado(-1);
+                            fila.add(vizinho);
+                        }
+                    }
+            }
+            v.setMarcado(1);
+    }
+
     //public ArrayList<Vertice> arestasIncidentes(Vertice v){
         //PERGUNTAR COMO FAZER JÁ QUE AS ARESTAS NÃO SÃO ARMAZENADAS
     //}
