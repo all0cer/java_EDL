@@ -1,5 +1,6 @@
 package filas.src.ListaDeAdjacencia;
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -194,6 +195,16 @@ public class Grafo {
             v.setMarcado(1);
     }
 
+    public ArrayList<Vertice> nosnegativos(Vertice v){
+        ArrayList<Vertice> nosnegativos = new ArrayList<>();
+        for(Vertice no: vertices){
+            if((Integer) no.getValor_vertice() < 0){
+                nosnegativos.add(v);
+            }
+        }
+
+        return nosnegativos;
+    }
     //public ArrayList<Vertice> arestasIncidentes(Vertice v){
         //PERGUNTAR COMO FAZER JÁ QUE AS ARESTAS NÃO SÃO ARMAZENADAS
     //}

@@ -365,8 +365,14 @@ public class ArvoreComFHeap implements IArvoreFilaH {
             upheap();
             return;
         }
-    }    
-     public void remove2(Object valor) {
+    }
+
+    @Override
+    public Object removeMin() {
+        return null;
+    }
+
+    public void remove2(Object valor) {
         
         //swap(raiz, ultimo) 
         node no_atual = ultimo; //APONTA PARA ULTIMO NO

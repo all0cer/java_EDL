@@ -26,7 +26,7 @@ public class arvoreb {
                 DividirArrays(no_atual);
             }
 
-        }
+        }return valor;
     }
 
 
